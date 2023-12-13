@@ -1,0 +1,53 @@
+@import url('https://fonts.googleapis.com/css2?family=Readex+Pro:wght@300;400;500;600;700&display=swap');
+
+/* * {font-family: 'Readex Pro';} */
+
+/* --- KPIs --- */
+/* Resumo KPIs Pagina de Adicionar/Atualizar Cadastro */
+div.st-emotion-cache-1r6slb0.e1f1d6gn2 {
+    background-color: #ffffff;
+    border: 1px solid #eeecec;
+    border-left: 0.5rem solid #220750;
+    padding: 20px 20px 20px 70px; */ 
+    padding: 5% 5% 5% 10%;
+    border-radius: 10px;
+    size: 0cqh;
+}
+
+/* KPIs Pagina de Consultas */
+div.st-emotion-cache-j5r0tf.e1f1d6gn2 {
+    background-color: #ffffff;
+    border: 1px solid #eeecec;
+    border-left: 0.5rem solid #220750;
+    padding: 20px 20px 20px 70px; */ 
+    padding: 5% 5% 5% 10%;
+    border-radius: 10px;
+    size: 0cqh;
+}
+
+
+/* --- LINKS UTEIS --- */
+a {
+    text-decoration: none; /* retira o sublinhado */
+    color: gray !important;
+    /* font-weight: bold; negrito */
+    font-size: 17px; /* tamanho da fonte */
+    display: inline-block;
+    padding: 0px 10px; /* Adiciona algum preenchimento para criar a aparência de um botão */
+    border: 1px solid #eeecec; /* Adiciona uma borda para parecer um botão */
+    border-radius: 5px; /* Borda arredondada para parecer um botão */
+}
+
+a:hover { /* ao passar o mouse */
+    text-decoration: none;       /* retira o sublinhado */
+    color: white !important;
+    border: 1px solid #FF4B4B; /* Adiciona uma borda para parecer um botão */
+    background-color: #FF4B4B; /* Cor de fundo ao passar o mouse */
+}
+
+/* --- RODAPE --- */
+/* Suprimindo o rodapé 'Made with streamlit' */
+footer {
+    visibility: hidden;
+}
+
