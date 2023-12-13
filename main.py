@@ -34,6 +34,8 @@ authenticator = stauth.Authenticate(names=names, usernames=usernames, passwords=
 name, authentication_status, username = authenticator.login(
     form_name="Login", location='main')
 
+st.write(st.session_state['name'])
+
 
 # Verificações da autenticação
 if authentication_status == None:
