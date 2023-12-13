@@ -34,8 +34,8 @@ authenticator = stauth.Authenticate(names=names, usernames=usernames, passwords=
 name, authentication_status, username = authenticator.login(
     form_name="Login", location='main')
 
-st.write(st.session_state['name'])
-
+st.write('name session', st.session_state['name'])
+st.write('username session', st.session_state['username'])
 
 # Verificações da autenticação
 if authentication_status == None:
@@ -63,7 +63,8 @@ if authentication_status:
 
         # TESTE
         # Username
-        st.write("username", name)
+        st.write("name", name)
+        st.write("username", username)
         
        
         # # Botão de Limpeza de Cache
