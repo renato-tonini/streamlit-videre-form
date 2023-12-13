@@ -4,7 +4,7 @@ import streamlit_authenticator as stauth        # pip install streamlit-authenti
 
 # def main():
 
---- CONFIGURAÇÃO INICIAL DO APP ---
+# --- CONFIGURAÇÃO INICIAL DO APP ---
 # Necessario no topo do script
 st.set_page_config(page_title="Formulário Videre",
                    page_icon="https://oticasvidere.com.br/wp-content/uploads/2023/09/Group-636.png",
