@@ -16,7 +16,7 @@
 
 # Arquivos .py com Testes
 consultas.py
-dataviz.py
+# dataviz.py
 db_users_upload.py
 login.py
 # Arquivo de testes com outras bibliotecas

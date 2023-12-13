@@ -1,7 +1,5 @@
 # --- PAGINA PRINCIPAL ---
 import streamlit as st
-# pip install streamlit-authenticator
-import streamlit_authenticator as stauth
 
 # def main():
 
@@ -12,6 +10,8 @@ st.set_page_config(page_title="Formulário Videre",
                    layout="wide",
                    initial_sidebar_state="expanded")
 
+
+import streamlit_authenticator as stauth        # pip install streamlit-authenticator
 
 # --- AUXILIARES ---
 import consultas
