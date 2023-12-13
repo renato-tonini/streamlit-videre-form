@@ -189,7 +189,10 @@ def create_dataframe_from_session(is_active="VERDADEIRO"):
     custo_total = calculations.calculate_total_costs()
     markup = calculations.calculate_markup()
     margem = calculations.calculate_margin()
-    user = get_system_username()
+    # Obtendo o usuário do sistema
+    # user = get_system_username()
+    # Obtendo usuário logado
+    user = st.session_state['username']
     # Obtendo o fuso horário local
     local_timezone = pytz.timezone("America/Sao_Paulo")
     # Criando a data e hora com o fuso horário local
