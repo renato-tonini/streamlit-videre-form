@@ -15,7 +15,7 @@
 .streamlit/APP FORMULARIO VIDERE.txt
 
 # Arquivos .py com Testes
-consultas.py
+# consultas.py
 # dataviz.py
 db_users_upload.py
 login.py
