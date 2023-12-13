@@ -21,6 +21,8 @@ import constants
 load_dotenv(".env")
 SPREADSHEET_STR = os.getenv("GSHEETS_NOME_PLANILHA")
 
+# Teste
+st.write("Planilha GSheets: ", SPREADSHEET_STR)
 
 # --- CONEXAO PADRAO DO STREAMLIT ---
 # Criando uma conexão com o Google Sheets

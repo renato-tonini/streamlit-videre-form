@@ -104,6 +104,7 @@ if authentication_status:
 
                 # Verifica se já existe algum registro com a OS e OS REF
                 record_exist = db_connection.check_record_exist(df_form)
+                st.write(record_exist)
 
                 # Caso não exista registro com mesma OS e OS REF
                 if not record_exist:
@@ -182,9 +183,6 @@ if authentication_status:
 
             # Desempacota os valores retornados na função
             submit_button, df_from = result
-
-            st.write("DF From")
-            st.dataframe(df_from)
 
             if submit_button:
 
