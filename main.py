@@ -58,6 +58,11 @@ if authentication_status:
 
         # Exibe o logotipo no sidebar
         st.image(image=constants.URL_LOGO)
+
+        # TESTE
+        # Username
+        st.write("username", name)
+        
        
         # # Botão de Limpeza de Cache
         # cache_button = st.button(label="Atualizar Base", key="atualizar_base", on_click=st.cache_data.clear())
@@ -65,8 +70,8 @@ if authentication_status:
         # Exibe um titulo
         st.title("Sistema de Cadastro")
         # Incluindo radio buttons para escolha do usuário
-        choice = st.selectbox(
-            label="Navegação", options=constants.MENU_LATERAL)
+        choice = st.selectbox(label="Navegação", options=constants.MENU_LATERAL)
+        
         # # incluindo informações sobre a aplicação
         # st.info("Esta aplicação permite adicionar cadastros, fazer atualizações, e realizar consultas aos registros de vendas da Videre.")
 
