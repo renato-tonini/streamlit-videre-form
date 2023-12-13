@@ -11,8 +11,6 @@ st.set_page_config(page_title="Formulário Videre",
                    layout="wide",
                    initial_sidebar_state="expanded")
 
-# TESTE
-import os
 
 # --- AUXILIARES ---
 import consultas
@@ -60,14 +58,7 @@ if authentication_status:
 
         # Exibe o logotipo no sidebar
         st.image(image=constants.URL_LOGO)
-
-
-        # Username
-        st.write("Usuário: ", st.experimental_user['email'])
-        TODO: "Teste"
-        st.write(st.secrets)
-        
-
+       
         # # Botão de Limpeza de Cache
         # cache_button = st.button(label="Atualizar Base", key="atualizar_base", on_click=st.cache_data.clear())
 
