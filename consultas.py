@@ -18,8 +18,8 @@ import dataviz
 # --- CONFIG INICIAL (MOEDA) ---
 # ==============================
 # Configurando a localização para o Brasil
-# locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
-locale.setlocale(locale.LC_ALL, 'pt_BR')
+locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
+# locale.setlocale(locale.LC_ALL, 'pt_BR')
 
 # ==================
 # --- CONSTANTES ---
@@ -422,7 +422,7 @@ def get_deadlines_kpis(df_diferencas):
 # Numericos
 def format_numbers(value, data_type=['currency', '%', 'markup']):
     if data_type == 'currency':
-        return locale.currency(value, grouping=True)
+        return locale.currency(value, grouping=True, symbol=None)
     if data_type == '%':
         return "{:.2%}".format(value)
     if data_type == 'markup':
