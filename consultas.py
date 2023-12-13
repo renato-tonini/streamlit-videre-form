@@ -18,8 +18,10 @@ import dataviz
 # --- CONFIG INICIAL (MOEDA) ---
 # ==============================
 # Configurando a localização para o Brasil
-locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
+# locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
 # locale.setlocale(locale.LC_ALL, 'pt_BR')
+locale.setlocale(locale.LC_ALL, "Portuguese_Brazil.1252")
+
 
 # ==================
 # --- CONSTANTES ---
