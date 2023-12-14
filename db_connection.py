@@ -147,12 +147,12 @@ def get_unique_orders():
     loja = get_store_by_user()
 
     # Filtrando somente os registros da loja logada
-    df_filtered = df_filtered[ (df_filtered['LOJA'] == loja) ]
+    df_filtered = df[ (df['LOJA'] == loja[0]) ]
     
     # Filtrando somente os registros ativos
-    df_filtered = df[(df['IsActive?'] == 1) |
-                     (df['IsActive?'] == "VERDADEIRO") |
-                     (df['IsActive?'] == True)]
+    df_filtered = df_filtered[(df_filtered['IsActive?'] == 1) |
+                     (df_filtered['IsActive?'] == "VERDADEIRO") |
+                     (df_filtered['IsActive?'] == True)]
     
     # Obtem os valores unicos da coluna 'OS'
     # Incluida ordenação de forma ascendente
@@ -172,12 +172,12 @@ def get_unique_orders_ref(unique_orders):
     loja = get_store_by_user()
 
     # Filtrando somente os registros da loja logada
-    df_filtered = df_filtered[ (df_filtered['LOJA'] == loja[0]) ]
+    df_filtered = df[ (df['LOJA'] == loja[0]) ]
 
     # Filtrando somente os registros ativos
-    df_filtered = df[(df['IsActive?'] == 1) |
-                     (df['IsActive?'] == "VERDADEIRO") |
-                     (df['IsActive?'] == True)]
+    df_filtered = df_filtered[(df_filtered['IsActive?'] == 1) |
+                     (df_filtered['IsActive?'] == "VERDADEIRO") |
+                     (df_filtered['IsActive?'] == True)]
     
     # Filtra somente as OS passadas no parametro e retorna somente a coluna 'OS REF'
     df_filtered = df_filtered[df_filtered['OS'] == unique_orders]['OS REF'].unique()
