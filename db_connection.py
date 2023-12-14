@@ -134,7 +134,7 @@ def get_mandatory_fields():
     return df_mandatory
 
 
-@st.cache_data(ttl=constants.TIME_TO_LIVE)
+# @st.cache_data(ttl=constants.TIME_TO_LIVE)
 def get_unique_orders():
     '''Retorna uma lista de valores unicos da coluna 'OS' da planilha 'Formulario'.'''
 
@@ -148,7 +148,9 @@ def get_unique_orders():
     
     # Obtendo a loja logada
     loja_logada = get_store_by_user()
-    
+    st.write(loja_logada)
+    st.write(loja_logada[0])
+
     # Filtrando somente os registros da loja logada
     df_filtered = df_filtered[ (df_filtered['LOJA'] == loja_logada[0]) ]
     
@@ -159,7 +161,7 @@ def get_unique_orders():
     return unique_orders
 
 
-@st.cache_data(ttl=constants.TIME_TO_LIVE)
+# @st.cache_data(ttl=constants.TIME_TO_LIVE)
 def get_unique_orders_ref(unique_orders):
     '''Retorna uma lista de valores unicos da coluna 'OS Ref' da planilha 'Formulario'.'''
 
