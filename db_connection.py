@@ -192,8 +192,8 @@ def get_unique_clients():
     return unique_clients
 
 
-@st.cache_data(ttl=constants.TIME_TO_LIVE)
-def get_df_by_orders(unique_orders, unique_orders_ref):
+# @st.cache_data(ttl=constants.TIME_TO_LIVE)
+def get_df_by_orders(loja, unique_orders, unique_orders_ref):
     '''Filtra o Dataframe original de acordo com os parametros de Ordem de Serviço passados.
         Utilizado no formulario de Atualização.'''
 
@@ -203,13 +203,14 @@ def get_df_by_orders(unique_orders, unique_orders_ref):
     # Filtra o dataframe de acordo com os parametros
     #   Via filtro padrão do Pandas
     df_filtered = df[(df['OS'] == unique_orders) &
-                     (df['OS REF'] == unique_orders_ref)]
+                     (df['OS REF'] == unique_orders_ref) &
+                     df['LOJA'] == loja ]
 
     # Filtrando somente os registros ativos
     df_filtered = df_filtered[(df_filtered['IsActive?'] == 1) |
                               (df_filtered['IsActive?'] == "VERDADEIRO") |
                               (df_filtered['IsActive?'] == True)]
-
+    
     # #  Via query SQL
     # sql = f'SELECT * FROM "Formulario" WHERE "OS" = {unique_orders} AND "OS REF" = {unique_orders_ref}'
     # df_filtered = conn.query(sql=sql, ttl=0)
