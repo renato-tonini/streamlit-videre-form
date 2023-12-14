@@ -107,15 +107,6 @@ def import_data(tabela=constants.TABELAS_GSHEETS[0]):
     # Chamando função de carregamento dos dados
     df = db_connection.load_data()
 
-    # # Criando a conexão com Google Sheets
-    # conn = st.connection(name="gsheets", type=GSheetsConnection)
-    # # Lendo a planilha especificada no parametro da função
-    # df = conn.read(worksheet=tabela) #, ttl=0)
-    # # Retirando os registros em branco
-    # df = df.dropna(how='all')
-    # # Criando uma cópia
-    # df = df.copy()
-
     # Pre-processamento do Dataframe
     df_pre_processed = pre_process_df(df)
 
@@ -202,8 +193,8 @@ def get_date_slider(df):
         data_inicial_slider = primeira_data_disponivel
 
     # Convertendo em Data somente (exclui hora p/ evitar erro no slider)
-    data_inicial_slider = dt.date(
-        data_inicial_slider.year, data_inicial_slider.month, data_inicial_slider.day)
+    data_inicial_slider = dt.date(data_inicial_slider.year, data_inicial_slider.month, data_inicial_slider.day)
+
     # Criando o Slider
     slider_data = st.sidebar.slider(label="Data Mínima", min_value=primeira_data_disponivel,
                                     max_value=ultima_data_disponivel,
@@ -281,8 +272,7 @@ def filter_df(df, data_inicial_slider, data_final_slider,
     # Tipos
     df_filtered = df_filtered[df_filtered['TIPO'].isin(multi_tipos)]
     # Fornecedor
-    df_filtered = df_filtered[df_filtered['FORNECEDOR'].isin(
-        multi_fornecedores)]
+    df_filtered = df_filtered[df_filtered['FORNECEDOR'].isin(multi_fornecedores)]
     # Tipo de Lente
     df_filtered = df_filtered[df_filtered['TIPO LENTE'].isin(multi_tipo_lente)]
     # Qualidade
@@ -567,10 +557,12 @@ def create_queries():
 
         # --- SLIDER PERIODO (DATAS) ---
         data_inicial_slider, data_final_slider = get_date_slider(df)
+        st.write("data_inicial_slider", data_inicial_slider)
+        st.write("data_final_slider", data_final_slider)
 
         # --- FILTROS MULTISELECT ---
-        multi_lojas, multi_vendedor, multi_tipos, multi_fornecedores, multi_tipo_lente, multi_qualidade = get_multiselect_filters(
-            df)
+        multi_lojas, multi_vendedor, multi_tipos, multi_fornecedores, multi_tipo_lente, multi_qualidade = get_multiselect_filters(df)
+
 
     # --- FILTRANDO DATAFRAME ---
     # Função para filtrar o DataFrame
