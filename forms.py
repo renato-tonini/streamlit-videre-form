@@ -65,7 +65,7 @@ def create_register_form():
 
         # Separada a LOJA para funcionar a seleção condicional com o VENDEDOR
         loja = st.selectbox(label=header_list[0] + OBRIGATORIO, options=opcoes_lojas,
-                            placeholder="Escolha a Loja", index=0, help=HELP, key=header_list[0], disabled=True)
+                            index=0, help=HELP, key=header_list[0], disabled=True)
 
         # Separada a TIPO LENTE para funcionar a seleção condicional com o QUALIDADE
         tipo_lente = st.selectbox(label=header_list[5] + OBRIGATORIO, options=opcoes_tipo_lente,

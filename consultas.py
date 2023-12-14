@@ -130,8 +130,7 @@ def pre_process_df(dataframe):
     dataframe = dataframe.drop(columns_to_drop, axis=1, inplace=False)
 
     # Conversão de Datas
-    dataframe[date_columns] = dataframe[date_columns].apply(
-        pd.to_datetime, errors='coerce')
+    dataframe[date_columns] = dataframe[date_columns].apply(pd.to_datetime, errors='coerce')
 
     # Conversõa de Valores Numericos
     dataframe[float_columns] = dataframe[float_columns].astype(float)
@@ -143,6 +142,8 @@ def pre_process_df(dataframe):
     dataframe = dataframe[(dataframe['IsActive?'] == 'VERDADEIRO') |
                           (dataframe['IsActive?'] == True) |
                           (dataframe['IsActive?'] == 1)]
+    
+
 
     # Ordenando por 'DATA DA VENDA' e fazendo uma cópia
     dataframe = dataframe.sort_values(
@@ -224,14 +225,15 @@ def get_multiselect_filters(df):
     header_list = db_connection.get_form_fields()
 
     # --- OPÇÕES MULTISELECT ---
-    # Lojas
-    opcoes_lojas = df['LOJA'].unique()
-    multi_lojas = st.sidebar.multiselect(
-        label=header_list[0], options=opcoes_lojas, default=opcoes_lojas, key="multi_lojas")
+    # Retem a Loja baseado no usuário do login 
+    opcoes_lojas = db_connection.get_store_by_user()
+
+        # Separada a LOJA para funcionar a seleção condicional com o VENDEDOR
+    loja = st.selectbox(label=header_list[0], options=opcoes_lojas,
+                        index=0, help=HELP, key=header_list[0], disabled=True)
     # Vendedor
-    # Filtrando as opções de vendedor somente dentro da(s) Loja(s) escolhida(s)
-    if multi_lojas:
-        opcoes_vendedor = df[df['LOJA'].isin(multi_lojas)]['VENDEDOR'].unique()
+    if loja:
+        opcoes_vendedor = df[df['LOJA'].isin(loja)]['VENDEDOR'].unique()
     else:
         opcoes_vendedor = df['VENDEDOR'].unique()
 
@@ -252,13 +254,13 @@ def get_multiselect_filters(df):
     # Qualidade
     # Filtrando as opções de qualidade somente dentro do(s) Tipo(s) de Lente escolhido(s)
     if multi_tipo_lente:
-        opcoes_qualidade = df[df['TIPO LENTE'].isin(
-            multi_tipo_lente)]['QUALIDADE'].unique()
+        opcoes_qualidade = df[df['TIPO LENTE'].isin(multi_tipo_lente)]['QUALIDADE'].unique()
     else:
         opcoes_qualidade = df['QUALIDADE'].unique()
 
     multi_qualidade = st.sidebar.multiselect(
         label=header_list[6], options=opcoes_qualidade, default=opcoes_qualidade, key="multi_qualidade")
+
 
     return multi_lojas, multi_vendedor, multi_tipos, multi_fornecedores, multi_tipo_lente, multi_qualidade
 
