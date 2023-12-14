@@ -72,7 +72,7 @@ cat_columns = ['LOJA', 'TIPO', 'OS', 'OS REF', 'FORNECEDOR',
 # --- LISTA COM FILTROS (VISÃO) ---
 # Filtros de Tempo
 visao_opcoes = ['Semanal', 'Quinzenal', 'Mensal',
-                'Trimestral', "Semestral", 'Anual', 'Todas']
+                'Trimestral', "Semestral", 'Anual']
 
 
 # ===============
@@ -202,8 +202,7 @@ def get_date_slider(df):
     # Criando o Slider
     slider_data = st.sidebar.slider(label="Data Mínima", min_value=primeira_data_disponivel,
                                     max_value=ultima_data_disponivel,
-                                    value=(data_inicial_slider,
-                                           ultima_data_disponivel),
+                                    value=(data_inicial_slider, ultima_data_disponivel),
                                     format="DD/MM/YYYY",
                                     key="slider_data")
 
@@ -542,7 +541,7 @@ def create_queries():
     '''Função principal chamada pela main para Consulta de Registros.'''
 
     # --- IMPORTANDO A BASE ---
-    # Importa a base e faz um pre-processamento simples
+    # Importa a base e faz um pre-processamento simples e filtro da loja
     df = import_data()
 
     st.write("df", df)
