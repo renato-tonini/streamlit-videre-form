@@ -172,12 +172,11 @@ def get_date_slider(df):
     # --- DATAS DE REFERENCIA PARA SLIDER ---
     # PRIMEIRA DATA
     primeira_data_disponivel = min(df['DATA DA VENDA'].dt.date)
-    st.write("primeira_data_disponivel", primeira_data_disponivel)
+
     # ULTIMA DATA
     # Opções:
     #   01 - Ultima data do Dataset
     ultima_data_disponivel = max(df['DATA DA VENDA'].dt.date)
-    st.write("ultima_data_disponivel", ultima_data_disponivel)
     #   02 - Data Atual
     # ultima_data_disponivel = dt.date.today()
 
@@ -529,8 +528,6 @@ def create_queries():
     # Importa a base e faz um pre-processamento simples e filtro da loja
     df = import_data()
 
-    st.write("df", df)
-    
     # Retem a Loja logada
     loja_logada = db_connection.get_store_by_user()
 
@@ -548,8 +545,6 @@ def create_queries():
         # Filtra o Dataframe somente com a loja logada
         df_filtered_loja = df[ (df['LOJA'].isin(loja_logada)) ]
 
-        st.write("df_filtered_loja", df_filtered_loja)
-
         # --- SLIDER PERIODO (DATAS) ---
         data_inicial_slider, data_final_slider = get_date_slider(df_filtered_loja)
         
@@ -565,7 +560,7 @@ def create_queries():
         # DATAS
         (df_filtered_loja['DATA DA VENDA'] >= data_inicial_slider)
         & (df_filtered_loja['DATA DA VENDA'] <= data_final_slider)
-        # MULTISELECTS
+        # MULTISELECTS (Loja já foi filtrada antes)
         & (df_filtered_loja['VENDEDOR'].isin(multi_vendedor))
         & (df_filtered_loja['TIPO'].isin(multi_tipos))
         & (df_filtered_loja['FORNECEDOR'].isin(multi_fornecedores))
