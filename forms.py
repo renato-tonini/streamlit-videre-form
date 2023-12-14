@@ -443,6 +443,11 @@ def create_exclusion_form():
     # --- EXPANSOR SELEÇÃO OS ---
     with st.expander(label="Ordem de Serviço:", expanded=True):
 
+        # Retem a Loja baseado no usuário do login
+        opcoes_lojas = db_connection.get_store_by_user()
+        loja = st.selectbox(label=header_list[0] + OBRIGATORIO, options=opcoes_lojas, index=0,
+                            placeholder="Escolha a Loja", help=HELP, key=header_list[0], disabled=True)
+
         # Retorna os valores unicos das OSs
         opcoes_ordem_servico = db_connection.get_unique_orders()
         ordem_servico = st.selectbox(label=header_list[2] + OBRIGATORIO, placeholder="Escolha a Ordem de Serviço desejada", index=None,
@@ -457,7 +462,6 @@ def create_exclusion_form():
             # Filtra o Dataframe de acordo com a Ordem de Serviço ('OS' e 'OS REF')
             df_from = db_connection.get_df_by_orders(unique_orders=ordem_servico, unique_orders_ref=ordem_servico_ref)
 
-
             # Mostrando o Registro (omite as 03 ultimas colunas do usuario)
             st.write("Registros:")
             st.dataframe(df_from.iloc[:, :-3])
@@ -466,11 +470,6 @@ def create_exclusion_form():
             with st.form(key=FORMS_KEY[3], clear_on_submit=False):
 
                 # --- INICIO DOS CAMPOS ---
-                registro_loja = df_from['LOJA'].values
-                idx_loja = opcoes_lojas.index(registro_loja[0])
-                loja = st.selectbox(label=header_list[0] + OBRIGATORIO, options=registro_loja, index=0, 
-                                    disabled=True, key=header_list[0])
-
                 registro_tipo_lente = df_from['TIPO LENTE'].values
                 idx_tipo_lente = opcoes_tipo_lente.index(registro_tipo_lente[0])
                 tipo_lente = st.selectbox(label=header_list[5] + OBRIGATORIO, options=registro_tipo_lente, index=0, 
