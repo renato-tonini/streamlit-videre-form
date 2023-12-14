@@ -191,12 +191,17 @@ def create_update_form():
     # --- EXPANSOR SELEÇÃO OS ---
     with st.expander(label="Ordem de Serviço:", expanded=True):
 
+        # Retem a Loja baseado no usuário do login
+        opcoes_lojas = db_connection.get_store_by_user()
+        loja = st.selectbox(label=header_list[0] + OBRIGATORIO, options=opcoes_lojas, index=0,
+                                placeholder="Escolha a Loja", help=HELP, key=header_list[0], disabled=True)
+        
         # Retorna os valores unicos das OSs
-        opcoes_ordem_servico = db_connection.get_unique_orders()
+        opcoes_ordem_servico = db_connection.get_unique_orders(opcoes_lojas[0])
         ordem_servico = st.selectbox(label=header_list[2] + OBRIGATORIO, placeholder="Escolha a Ordem de Serviço desejada", index=None,
                                      help=HELP, options=opcoes_ordem_servico, key=header_list[2])
         # Retorna os valores unicos das OS Ref baseado na OS selecionada
-        opcoes_ordem_servico_ref = db_connection.get_unique_orders_ref(ordem_servico)
+        opcoes_ordem_servico_ref = db_connection.get_unique_orders_ref(opcoes_lojas[0], ordem_servico)
         ordem_servico_ref = st.selectbox(label=header_list[3] + OBRIGATORIO, placeholder="Escolha a Ordem de Serviço Ref desejada", index=None,
                                          help=HELP, options=opcoes_ordem_servico_ref, key=header_list[3])
 
@@ -208,12 +213,6 @@ def create_update_form():
             # Mostrando o Registro (omite as 03 ultimas colunas do usuario)
             st.write("Registro:")
             st.dataframe(df_from.iloc[:, :-3])
-
-            # Retem a Loja baseado no usuário do login
-            opcoes_lojas = db_connection.get_store_by_user()
-
-            loja = st.selectbox(label=header_list[0] + OBRIGATORIO, options=opcoes_lojas, index=0,
-                                placeholder="Escolha a Loja", help=HELP, key=header_list[0], disabled=True)
 
             registro_tipo_lente = df_from['TIPO LENTE'].values
             idx_tipo_lente = opcoes_tipo_lente.index(registro_tipo_lente[0])

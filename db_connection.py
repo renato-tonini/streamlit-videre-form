@@ -60,6 +60,7 @@ def get_store_by_user():
 def get_headers_list(tabela):
     # Retorna um dataframe com base no nome da planilha
     df = load_data(tabela)
+    # Retorna uma lista dos cabeçalhos
     headers_list = df.columns.to_list()
 
     return headers_list
@@ -67,7 +68,8 @@ def get_headers_list(tabela):
 
 @st.cache_data(ttl=constants.TIME_TO_LIVE)
 def get_form_fields(exclude_extra_cols=False):
-    # Chamando a função para retornar uma lista com todos os cabeçalhos
+    '''Retorna uma lista filtrada dos cabeçalhos.'''
+
     header_list = get_headers_list(tabela=constants.TABELAS_GSHEETS[0])
 
     if exclude_extra_cols:
@@ -135,22 +137,19 @@ def get_mandatory_fields():
 
 
 # @st.cache_data(ttl=constants.TIME_TO_LIVE)
-def get_unique_orders():
+def get_unique_orders(loja):
     '''Retorna uma lista de valores unicos da coluna 'OS' da planilha 'Formulario'.'''
 
     # Carrega os dados da planilha Formulario
     df = load_data(tabela="Formulario")
 
+    # Filtrando somente os registros da loja logada
+    df_filtered = df_filtered[ (df_filtered['LOJA'] == loja) ]
+    
     # Filtrando somente os registros ativos
     df_filtered = df[(df['IsActive?'] == 1) |
                      (df['IsActive?'] == "VERDADEIRO") |
                      (df['IsActive?'] == True)]
-    
-    # Obtendo a loja logada
-    loja_logada = get_store_by_user()
-
-    # Filtrando somente os registros da loja logada
-    df_filtered = df_filtered[ (df_filtered['LOJA'] == loja_logada[0]) ]
     
     # Obtem os valores unicos da coluna 'OS'
     # Incluida ordenação de forma ascendente
@@ -160,23 +159,20 @@ def get_unique_orders():
 
 
 # @st.cache_data(ttl=constants.TIME_TO_LIVE)
-def get_unique_orders_ref(unique_orders):
+def get_unique_orders_ref(loja, unique_orders):
     '''Retorna uma lista de valores unicos da coluna 'OS Ref' da planilha 'Formulario'.'''
 
     # Carrega os dados da planilha Formulario
     df = load_data(tabela="Formulario")
+
+    # Filtrando somente os registros da loja logada
+    df_filtered = df_filtered[ (df_filtered['LOJA'] == loja) ]
 
     # Filtrando somente os registros ativos
     df_filtered = df[(df['IsActive?'] == 1) |
                      (df['IsActive?'] == "VERDADEIRO") |
                      (df['IsActive?'] == True)]
     
-    # Obtendo a loja logada
-    loja_logada = get_store_by_user()
-
-    # Filtrando somente os registros da loja logada
-    df_filtered = df_filtered[ (df_filtered['LOJA'] == loja_logada[0]) ]
-
     # Filtra somente as OS passadas no parametro e retorna somente a coluna 'OS REF'
     df_filtered = df_filtered[df_filtered['OS'] == unique_orders]['OS REF'].unique()
     
