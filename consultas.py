@@ -544,15 +544,13 @@ def create_queries():
         st.write("loja_logada: ", loja_logada)
 
         # Dropdown com a loja desabilitada
-        loja = st.selectbox(label=header_list[0], options=loja_logada, index=0, disabled=True, key="loja_logada")
-
-        st.write("loja: ", loja)
-        st.write("loja_logada: ", st.session_state['loja_logada'])
-
+        lojas = st.selectbox(label=header_list[0], options=loja_logada, index=0, disabled=True, key="loja_logada")
 
         # Filtra o Dataframe somente com a loja logada
         df_filtered_loja = df[ df['LOJA'].isin(loja_logada) ]
 
+        st.write("df_filtered_loja", df_filtered_loja)
+        
         # --- SLIDER PERIODO (DATAS) ---
         data_inicial_slider, data_final_slider = get_date_slider(df_filtered_loja)
         
