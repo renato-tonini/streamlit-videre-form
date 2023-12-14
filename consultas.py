@@ -170,22 +170,23 @@ def get_date_slider(df):
 
     # Selectbox com a visão desejada (semanal, quinzenal, etc...)
     visao_selecionada = st.sidebar.selectbox(label="Visão", options=visao_opcoes,
-                                             placeholder="Selecione o período desejado", index=None)
+                                             placeholder="Selecione o período desejado", index=0)
 
     # --- DATAS DE REFERENCIA PARA SLIDER ---
     # PRIMEIRA DATA
     primeira_data_disponivel = min(df['DATA DA VENDA'].dt.date)
-
+    st.write("primeira_data_disponivel", primeira_data_disponivel)
     # ULTIMA DATA
     # Opções:
     #   01 - Ultima data do Dataset
     ultima_data_disponivel = max(df['DATA DA VENDA'].dt.date)
+    st.write("ultima_data_disponivel", ultima_data_disponivel)
     #   02 - Data Atual
     # ultima_data_disponivel = dt.date.today()
 
     # Chamando função para retornar a data inicial a partir da visão selecionada
-    data_inicial_slider = get_initial_slider_date(
-        visao_selecionada=visao_selecionada, data_final_ref=ultima_data_disponivel)
+    data_inicial_slider = get_initial_slider_date(visao_selecionada=visao_selecionada, 
+                                                  data_final_ref=ultima_data_disponivel)
 
     # Verifica se o usuario escolheu Todas (função retorna None)
     if data_inicial_slider is None:
