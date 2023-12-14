@@ -8,7 +8,8 @@ DESCRICAO = "Clique nos links abaixo para ser direcionado ao site:"
 # --- LINKS ---
 LINKS_SITES = {
     "Site Videre": "https://oticasvidere.com.br/",
-    "Fornecedor X": "https://www.registrobase.com.br/app.rb/", 
+    "Registro Base": "https://www.registrobase.com.br/app.rb/", 
+    "Technopark": "http://webpedidos.labtechnopark.com.br/webpedidos/login.php"
 }
 
 
