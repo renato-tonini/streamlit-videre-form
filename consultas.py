@@ -530,6 +530,11 @@ def create_queries():
     df = import_data()
 
     st.write("df", df)
+    
+    # Retem a Loja logada
+    loja_logada = db_connection.get_store_by_user()
+
+    st.write("loja_logada: ", loja_logada)
 
     # --- SIDEBAR C/ FILTROS ---
     # Incluindo um divisor para os filtros
@@ -539,18 +544,14 @@ def create_queries():
         # Titulo
         st.subheader("Filtros de Consulta")
         
-        # Retem a Loja logada
-        loja_logada = db_connection.get_store_by_user()
-        st.write("loja_logada: ", loja_logada)
-
-        # Dropdown com a loja desabilitada
-        lojas = st.selectbox(label=header_list[0], options=loja_logada, index=0, disabled=True, key="loja_logada")
+        # Dropdown com a loja desabilitada       
+        lojas = st.selectbox(label=header_list[0], options=loja_logada, index=None, disabled=True, key="loja_logada")
 
         # Filtra o Dataframe somente com a loja logada
         df_filtered_loja = df[ df['LOJA'].isin(loja_logada) ]
 
         st.write("df_filtered_loja", df_filtered_loja)
-        
+
         # --- SLIDER PERIODO (DATAS) ---
         data_inicial_slider, data_final_slider = get_date_slider(df_filtered_loja)
         
