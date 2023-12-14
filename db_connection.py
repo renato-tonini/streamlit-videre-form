@@ -298,7 +298,6 @@ def check_record_exist(record, tabela=constants.TABELAS_GSHEETS[0]):
     # Filtra o dataframe de acordo com os parametros
     df_filtered = df[ (df["OS"] == os_record) & (df["OS REF"] == os_ref_record) ]
     # df_filtered = df[ (df["OS"].isin(os_record)) & (df["OS REF"].isin(os_ref_record)) ]
-    st.write("df_filtered (check_record_exist)", df_filtered)
 
     # Numero de registros com a mesma OS e OS REF
     n_matches = len(df_filtered)
