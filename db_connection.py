@@ -176,7 +176,8 @@ def get_unique_orders_ref(unique_orders):
 
     # Filtra somente as OS passadas no parametro e retorna somente a coluna 'OS REF'
     df_filtered = df_filtered[df_filtered['OS'] == unique_orders]['OS REF'].unique()
-
+    st.write("get_unique_orders_ref (df_filtered)", df_filtered)
+    
     return df_filtered
 
 
