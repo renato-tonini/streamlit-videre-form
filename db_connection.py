@@ -147,7 +147,7 @@ def get_unique_orders():
     loja = get_store_by_user()
 
     # Filtrando somente os registros da loja logada
-    df_filtered = df[ (df['LOJA'] == loja[0]) ]
+    df_filtered = df[ (df['LOJA'].isin(loja)) ]
     
     # Filtrando somente os registros ativos
     df_filtered = df_filtered[(df_filtered['IsActive?'] == 1) |
@@ -172,7 +172,7 @@ def get_unique_orders_ref(unique_orders):
     loja = get_store_by_user()
 
     # Filtrando somente os registros da loja logada
-    df_filtered = df[ (df['LOJA'] == loja[0]) ]
+    df_filtered = df[ (df['LOJA'].isin(loja)) ]
 
     # Filtrando somente os registros ativos
     df_filtered = df_filtered[(df_filtered['IsActive?'] == 1) |
@@ -200,8 +200,7 @@ def get_df_by_orders(unique_orders, unique_orders_ref):
     #   Via filtro padrão do Pandas
     df_filtered = df[(df['OS'] == unique_orders) &
                      (df['OS REF'] == unique_orders_ref) &
-                     (df['LOJA'] == loja[0]) 
-                     ]
+                     (df['LOJA'].isin(loja))]
 
     # Filtrando somente os registros ativos
     df_filtered = df_filtered[(df_filtered['IsActive?'] == 1) |
