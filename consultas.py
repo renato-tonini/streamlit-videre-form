@@ -542,7 +542,7 @@ def create_queries():
         
         # Retem a Loja logada
         loja_logada = db_connection.get_store_by_user()
-        
+        st.write("loja_logada")
         # Dropdown com a loja desabilitada
         loja = st.selectbox(label=header_list[0], options=loja_logada, index=0, disabled=True, key="loja_logada")
 
@@ -550,12 +550,12 @@ def create_queries():
         df_filtered_loja = df[ df['LOJA'].isin(loja) ]
 
         # --- SLIDER PERIODO (DATAS) ---
-        data_inicial_slider, data_final_slider = get_date_slider(df)
+        data_inicial_slider, data_final_slider = get_date_slider(df_filtered_loja)
         st.write("data_inicial_slider", data_inicial_slider)
         st.write("data_final_slider", data_final_slider)
 
         # --- FILTROS MULTISELECT ---
-        multi_vendedor, multi_tipos, multi_fornecedores, multi_tipo_lente, multi_qualidade = get_multiselect_filters(df)
+        multi_vendedor, multi_tipos, multi_fornecedores, multi_tipo_lente, multi_qualidade = get_multiselect_filters(df_filtered_loja)
 
 
     # --- FILTRANDO DATAFRAME ---
