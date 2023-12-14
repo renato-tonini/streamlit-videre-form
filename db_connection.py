@@ -147,7 +147,7 @@ def get_unique_orders():
     loja = get_store_by_user()
 
     # Filtrando somente os registros da loja logada
-    df_filtered = df_filtered[ (df_filtered['LOJA'] == loja[0]) ]
+    df_filtered = df_filtered[ (df_filtered['LOJA'] == str(loja[0])) ]
     
     # Filtrando somente os registros ativos
     df_filtered = df[(df['IsActive?'] == 1) |
@@ -186,19 +186,6 @@ def get_unique_orders_ref(unique_orders):
 
 
 @st.cache_data(ttl=constants.TIME_TO_LIVE)
-def get_unique_clients():
-    '''Retorna uma lista de clientes únicos da planilha 'Formulario'.'''
-
-    # Carrega os dados da planilha Formulario
-    df = load_data(tabela="Formulario")
-
-    # Retorna uma lista dos clientes unicos
-    unique_clients = df['CLIENTE'].unique()
-
-    return unique_clients
-
-
-# @st.cache_data(ttl=constants.TIME_TO_LIVE)
 def get_df_by_orders(unique_orders, unique_orders_ref):
     '''Filtra o Dataframe original de acordo com os parametros de Ordem de Serviço passados.
         Utilizado no formulario de Atualização.'''
@@ -226,6 +213,19 @@ def get_df_by_orders(unique_orders, unique_orders_ref):
     # df_filtered = conn.query(sql=sql, ttl=0)
 
     return df_filtered
+
+
+@st.cache_data(ttl=constants.TIME_TO_LIVE)
+def get_unique_clients():
+    '''Retorna uma lista de clientes únicos da planilha 'Formulario'.'''
+
+    # Carrega os dados da planilha Formulario
+    df = load_data(tabela="Formulario")
+
+    # Retorna uma lista dos clientes unicos
+    unique_clients = df['CLIENTE'].unique()
+
+    return unique_clients
 
 
 @st.cache_data(ttl=constants.TIME_TO_LIVE)
