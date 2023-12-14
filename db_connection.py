@@ -147,7 +147,7 @@ def get_unique_orders():
     loja = get_store_by_user()
 
     # Filtrando somente os registros da loja logada
-    df_filtered = df_filtered[ (df_filtered['LOJA'] == str(loja[0])) ]
+    df_filtered = df_filtered[ (df_filtered['LOJA'] == loja) ]
     
     # Filtrando somente os registros ativos
     df_filtered = df[(df['IsActive?'] == 1) |
