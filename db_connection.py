@@ -15,6 +15,7 @@ import gspread
 # --- AUXILIARES ---
 import constants
 
+
 # --- CONEXAO VIA GSPREAD ---
 # Parte utilizada para update de Dados (somente) ---
 # Carregando a variavel de ambiente
@@ -41,6 +42,8 @@ def load_data(tabela=constants.TABELAS_GSHEETS[0]):
     df = df.dropna(how='all')
     # Criando uma cópia
     df = df.copy()
+    # # Limpa o cache
+    # st.cache_data.clear()
 
     return df
 
