@@ -292,12 +292,13 @@ def check_record_exist(record, tabela=constants.TABELAS_GSHEETS[0]):
     df = load_data(tabela="Formulario")
 
     # Valores procurados (OS e OS REF)
-    os_record = record['OS']
-    os_ref_record = record['OS REF']
+    os_record = record['OS'][0]
+    os_ref_record = record['OS REF'][0]
     
     # Filtra o dataframe de acordo com os parametros
-    # df_filtered = df[ (df["OS"] == os_record) & (df["OS REF"] == os_ref_record) ]
-    df_filtered = df[ (df["OS"].isin(os_record)) & (df["OS REF"].isin(os_ref_record)) ]
+    df_filtered = df[ (df["OS"] == os_record) & (df["OS REF"] == os_ref_record) ]
+    # df_filtered = df[ (df["OS"].isin(os_record)) & (df["OS REF"].isin(os_ref_record)) ]
+    st.write(len(df_filtered))
 
     # Numero de registros com a mesma OS e OS REF
     n_matches = len(df_filtered)
