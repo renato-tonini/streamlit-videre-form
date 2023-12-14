@@ -51,7 +51,7 @@ def get_store_by_user():
     # Dividindo a string usando o separado "_"
     parts = user_name.split('_')
     # Pegar a parte após o primeiro "_"
-    store = parts[1] if len(parts) > 1 else user_name
+    store = [parts[1] if len(parts) > 1 else user_name]
 
     return store
 

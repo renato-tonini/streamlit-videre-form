@@ -60,7 +60,8 @@ def create_register_form():
     # Necessário retirar do Formulario os condicionais para reter os valores destes
     with st.expander("Selecione as opções abaixo:", expanded=True):
 
-
+        st.write(opcoes_lojas)
+        
         # Separada a LOJA para funcionar a seleção condicional com o VENDEDOR
         loja = st.selectbox(label=header_list[0] + OBRIGATORIO, options=[opcoes_lojas],
                             placeholder="Escolha a Loja", index=0, help=HELP, key=header_list[0], disabled=True)
