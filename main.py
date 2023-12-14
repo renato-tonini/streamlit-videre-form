@@ -60,7 +60,7 @@ if authentication_status:
         st.image(image=constants.URL_LOGO)
 
         # Usuário
-        st.write('---')
+        st.markdown('---')
         st.write(f'Usuário: **{st.session_state["name"]}**')
     
         # # Botão de Limpeza de Cache
