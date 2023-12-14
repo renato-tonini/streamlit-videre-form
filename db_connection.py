@@ -56,7 +56,6 @@ def get_store_by_user():
     return store
 
 
-
 @st.cache_data(ttl=constants.TIME_TO_LIVE)
 def get_headers_list(tabela):
     # Retorna um dataframe com base no nome da planilha
@@ -75,8 +74,7 @@ def get_form_fields(exclude_extra_cols=False):
         # Lista com os cabeçalhos a excluir
         cols_to_exclude = ["IsActive?", "user", "modified"]
         # List comprehension p/ retornar uma lista somente com os cabeçalhos desejados
-        filtered_headers = [
-            col for col in header_list if col not in cols_to_exclude]
+        filtered_headers = [col for col in header_list if col not in cols_to_exclude]
     else:
         filtered_headers = header_list
 
