@@ -214,8 +214,7 @@ def get_multiselect_filters(df, ):
 
     # --- OPÇÕES MULTISELECT ---
     # Opções de Vendedor filtrando somente na loja logada
-    loja_logada = st.session_state['loja_logada']
-    opcoes_vendedor = df[df['LOJA'].isin(loja_logada)]['VENDEDOR'].unique()
+    opcoes_vendedor = df['VENDEDOR'].unique()
     multi_vendedor = st.sidebar.multiselect(label=header_list[16], options=opcoes_vendedor, default=opcoes_vendedor, key="multi_vendedor")
     # Tipos
     opcoes_tipo = df['TIPO'].unique()
@@ -542,19 +541,21 @@ def create_queries():
         
         # Retem a Loja logada
         loja_logada = db_connection.get_store_by_user()
-        st.write("loja_logada",loja_logada)
-        
+        st.write("loja_logada: ", loja_logada)
+
         # Dropdown com a loja desabilitada
         loja = st.selectbox(label=header_list[0], options=loja_logada, index=0, disabled=True, key="loja_logada")
 
+        st.write("loja: ", loja)
+        st.write("loja_logada: ", st.session_state['loja_logada'])
+
+
         # Filtra o Dataframe somente com a loja logada
-        df_filtered_loja = df[ df['LOJA'].isin(loja) ]
+        df_filtered_loja = df[ df['LOJA'].isin(loja_logada) ]
 
         # --- SLIDER PERIODO (DATAS) ---
         data_inicial_slider, data_final_slider = get_date_slider(df_filtered_loja)
-        st.write("data_inicial_slider", data_inicial_slider)
-        st.write("data_final_slider", data_final_slider)
-
+        
         # --- FILTROS MULTISELECT ---
         multi_vendedor, multi_tipos, multi_fornecedores, multi_tipo_lente, multi_qualidade = get_multiselect_filters(df_filtered_loja)
 
