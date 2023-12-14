@@ -137,14 +137,17 @@ def get_mandatory_fields():
 
 
 # @st.cache_data(ttl=constants.TIME_TO_LIVE)
-def get_unique_orders(loja):
+def get_unique_orders():
     '''Retorna uma lista de valores unicos da coluna 'OS' da planilha 'Formulario'.'''
 
     # Carrega os dados da planilha Formulario
     df = load_data(tabela="Formulario")
 
+    # Retorna a loja logada
+    loja = get_store_by_user()
+
     # Filtrando somente os registros da loja logada
-    df_filtered = df_filtered[ (df_filtered['LOJA'] == str(loja)) ]
+    df_filtered = df_filtered[ (df_filtered['LOJA'] == loja[0]) ]
     
     # Filtrando somente os registros ativos
     df_filtered = df[(df['IsActive?'] == 1) |
@@ -159,14 +162,17 @@ def get_unique_orders(loja):
 
 
 # @st.cache_data(ttl=constants.TIME_TO_LIVE)
-def get_unique_orders_ref(loja, unique_orders):
+def get_unique_orders_ref(unique_orders):
     '''Retorna uma lista de valores unicos da coluna 'OS Ref' da planilha 'Formulario'.'''
 
     # Carrega os dados da planilha Formulario
     df = load_data(tabela="Formulario")
 
+    # Retorna a loja logada
+    loja = get_store_by_user()
+
     # Filtrando somente os registros da loja logada
-    df_filtered = df_filtered[ (df_filtered['LOJA'] == loja) ]
+    df_filtered = df_filtered[ (df_filtered['LOJA'] == loja[0]) ]
 
     # Filtrando somente os registros ativos
     df_filtered = df[(df['IsActive?'] == 1) |
@@ -193,18 +199,22 @@ def get_unique_clients():
 
 
 # @st.cache_data(ttl=constants.TIME_TO_LIVE)
-def get_df_by_orders(loja, unique_orders, unique_orders_ref):
+def get_df_by_orders(unique_orders, unique_orders_ref):
     '''Filtra o Dataframe original de acordo com os parametros de Ordem de Serviço passados.
         Utilizado no formulario de Atualização.'''
 
     # Importando o Database
     df = load_data(tabela="Formulario")
 
+    # Retorna a loja logada
+    loja = get_store_by_user()
+
     # Filtra o dataframe de acordo com os parametros
     #   Via filtro padrão do Pandas
     df_filtered = df[(df['OS'] == unique_orders) &
                      (df['OS REF'] == unique_orders_ref) &
-                     df['LOJA'] == loja ]
+                     (df['LOJA'] == loja[0]) 
+                     ]
 
     # Filtrando somente os registros ativos
     df_filtered = df_filtered[(df_filtered['IsActive?'] == 1) |

@@ -197,13 +197,13 @@ def create_update_form():
                             placeholder="Escolha a Loja", help=HELP, key=header_list[0], disabled=True)
         
         # Retorna os valores unicos das OSs com base na Loja do Login
-        opcoes_ordem_servico = db_connection.get_unique_orders(opcoes_lojas)
+        opcoes_ordem_servico = db_connection.get_unique_orders()
 
         ordem_servico = st.selectbox(label=header_list[2] + OBRIGATORIO, placeholder="Escolha a Ordem de Serviço desejada", index=None,
                                      help=HELP, options=opcoes_ordem_servico, key=header_list[2])
         
         # Retorna os valores unicos das OS Ref baseado na OS selecionada com base na Loja do Login
-        opcoes_ordem_servico_ref = db_connection.get_unique_orders_ref(opcoes_lojas, ordem_servico)
+        opcoes_ordem_servico_ref = db_connection.get_unique_orders_ref(ordem_servico)
         ordem_servico_ref = st.selectbox(label=header_list[3] + OBRIGATORIO, placeholder="Escolha a Ordem de Serviço Ref desejada", index=None,
                                          help=HELP, options=opcoes_ordem_servico_ref, key=header_list[3])
 
