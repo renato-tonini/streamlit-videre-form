@@ -40,7 +40,7 @@ header_list = db_connection.get_form_fields(exclude_extra_cols=False)
 # --- DEFININDO AS OPÇÕES (SELECT BOX)---
 # Chamando as funções com base na constante referente ao nome da planilha
 # opcoes_lojas = db_connection.get_options_list(tabela=constants.TABELAS_GSHEETS[1])
-opcoes_lojas = db_connection.get_store_by_user()
+# opcoes_lojas = db_connection.get_store_by_user()
 
 opcoes_tipo = db_connection.get_options_list(tabela=constants.TABELAS_GSHEETS[2])
 opcoes_fornecedor = db_connection.get_options_list(tabela=constants.TABELAS_GSHEETS[3])
@@ -63,7 +63,7 @@ def create_register_form():
         st.write(st.session_state["name"])
         opcoes_lojas = db_connection.get_store_by_user()
         st.write("opcoes_lojas", opcoes_lojas)
-        
+
         # Separada a LOJA para funcionar a seleção condicional com o VENDEDOR
         loja = st.selectbox(label=header_list[0] + OBRIGATORIO, options=opcoes_lojas,
                             placeholder="Escolha a Loja", index=0, help=HELP, key=header_list[0], disabled=True)
