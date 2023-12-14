@@ -34,7 +34,7 @@ authenticator = stauth.Authenticate(names=names, usernames=usernames, passwords=
 name, authentication_status, username = authenticator.login(
     form_name="Login", location='main')
 
-
+if 'usuario'
 # Verificações da autenticação
 if authentication_status == None:
     st.warning("Digite seu Usuário e Senha.")
@@ -60,7 +60,8 @@ if authentication_status:
         st.image(image=constants.URL_LOGO)
 
         # Usuário
-        st.markdown(f"Usuário: " {st.secrets['username']})
+        st.write(f'Usuário *{st.session_state["name"]}*')
+    
         # # Botão de Limpeza de Cache
         # cache_button = st.button(label="Atualizar Base", key="atualizar_base", on_click=st.cache_data.clear())
 
