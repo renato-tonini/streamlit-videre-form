@@ -534,8 +534,6 @@ def create_queries():
     # Retem a Loja logada
     loja_logada = db_connection.get_store_by_user()
 
-    st.write("loja_logada: ", loja_logada)
-
     # --- SIDEBAR C/ FILTROS ---
     # Incluindo um divisor para os filtros
     with st.sidebar:
@@ -545,10 +543,10 @@ def create_queries():
         st.subheader("Filtros de Consulta")
         
         # Dropdown com a loja desabilitada       
-        lojas = st.selectbox(label=header_list[0], options=loja_logada, index=None, disabled=True, key="loja_logada")
+        lojas = st.selectbox(label="LOJA", options=loja_logada, index=0, disabled=True)
 
         # Filtra o Dataframe somente com a loja logada
-        df_filtered_loja = df[ df['LOJA'].isin(loja_logada) ]
+        df_filtered_loja = df[ (df['LOJA'].isin(loja_logada)) ]
 
         st.write("df_filtered_loja", df_filtered_loja)
 
