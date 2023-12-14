@@ -60,7 +60,8 @@ if authentication_status:
         st.image(image=constants.URL_LOGO)
 
         # Usuário
-        st.write(f'Usuário *{st.session_state["name"]}*')
+        st.write('---')
+        st.write(f'Usuário: **{st.session_state["name"]}**')
     
         # # Botão de Limpeza de Cache
         # cache_button = st.button(label="Atualizar Base", key="atualizar_base", on_click=st.cache_data.clear())
