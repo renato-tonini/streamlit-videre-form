@@ -122,8 +122,8 @@ def create_comparison_df(df_from, df_to):
 
     # Adiciona rótulos 'DE' e 'PARA' aos indices 
     # incluido 1º item p/ o caso de ter mais de 01 registro
-    df_from.index = ['DE'][0]
-    df_to.index = ['PARA'][0]
+    df_from.index = ['DE']
+    df_to.index = ['PARA']
 
     # Concatena os 02 Dataframes (FROM/TO)
     # Omite as 03 ultimas colunas
