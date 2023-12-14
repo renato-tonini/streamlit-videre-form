@@ -59,10 +59,9 @@ def create_register_form():
     # --- EXPANSOR LOJA/TIPO LENTE (DROPDOWNS CONDICIONAIS) ---
     # Necessário retirar do Formulario os condicionais para reter os valores destes
     with st.expander("Selecione as opções abaixo:", expanded=True):
-
-        st.write(st.session_state["name"])
+        
+        # Retem a Loja baseado no usuário do login
         opcoes_lojas = db_connection.get_store_by_user()
-        st.write("opcoes_lojas", opcoes_lojas)
 
         # Separada a LOJA para funcionar a seleção condicional com o VENDEDOR
         loja = st.selectbox(label=header_list[0] + OBRIGATORIO, options=opcoes_lojas,
