@@ -161,7 +161,7 @@ def get_unique_orders():
     return unique_orders
 
 
-# @st.cache_data(ttl=constants.TIME_TO_LIVE)
+@st.cache_data(ttl=constants.TIME_TO_LIVE)
 def get_unique_orders_ref(unique_orders):
     '''Retorna uma lista de valores unicos da coluna 'OS Ref' da planilha 'Formulario'.'''
 
