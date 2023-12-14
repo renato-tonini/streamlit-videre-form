@@ -542,7 +542,8 @@ def create_queries():
         
         # Retem a Loja logada
         loja_logada = db_connection.get_store_by_user()
-        st.write("loja_logada")
+        st.write("loja_logada",loja_logada)
+        
         # Dropdown com a loja desabilitada
         loja = st.selectbox(label=header_list[0], options=loja_logada, index=0, disabled=True, key="loja_logada")
 
