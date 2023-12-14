@@ -208,8 +208,8 @@ def create_update_form():
 
             registro_loja = df_from['LOJA'].values
             idx_loja = opcoes_lojas.index(registro_loja[0])
-            loja = st.selectbox(label=header_list[0] + OBRIGATORIO, options=opcoes_lojas, index=idx_loja,
-                                placeholder="Escolha a Loja", help=HELP, key=header_list[0])
+            loja = st.selectbox(label=header_list[0] + OBRIGATORIO, options=opcoes_lojas, index=0,
+                                placeholder="Escolha a Loja", help=HELP, key=header_list[0], disabled=True)
 
             registro_tipo_lente = df_from['TIPO LENTE'].values
             idx_tipo_lente = opcoes_tipo_lente.index(registro_tipo_lente[0])

@@ -147,7 +147,13 @@ def get_unique_orders():
     df_filtered = df[(df['IsActive?'] == 1) |
                      (df['IsActive?'] == "VERDADEIRO") |
                      (df['IsActive?'] == True)]
-
+    
+    # Obtendo a loja logada
+    loja_logada = get_store_by_user()
+    
+    # Filtrando somente os registros da loja logada
+    df_filtered = df_filtered[ (df_filtered['LOJA'] == loja_logada[0]) ]
+    
     # Obtem os valores unicos da coluna 'OS'
     # Incluida ordenação de forma ascendente
     unique_orders = df_filtered['OS'].sort_values(ascending=True).unique()
