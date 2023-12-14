@@ -34,7 +34,7 @@ authenticator = stauth.Authenticate(names=names, usernames=usernames, passwords=
 name, authentication_status, username = authenticator.login(
     form_name="Login", location='main')
 
-if 'usuario'
+
 # Verificações da autenticação
 if authentication_status == None:
     st.warning("Digite seu Usuário e Senha.")
