@@ -106,7 +106,6 @@ def import_data(tabela=constants.TABELAS_GSHEETS[0]):
 
     # Chamando função de carregamento dos dados
     df = db_connection.load_data()
-
     # Pre-processamento do Dataframe
     df_pre_processed = pre_process_df(df)
 
@@ -208,22 +207,19 @@ def get_date_slider(df):
     return data_inicial_slider, data_final_slider
 
 
-def get_multiselect_filters(df, loja):
+def get_multiselect_filters(df, ):
     # --- CABECALHOS DA BASE ---
     # Chamando a função para obter os cabeçalhos da Planilha Formulario
     header_list = db_connection.get_form_fields()
 
     # --- OPÇÕES MULTISELECT ---
-    # Vendedor
-    if loja:
-        opcoes_vendedor = df[df['LOJA'].isin(loja)]['VENDEDOR'].unique()
-    else:
-        opcoes_vendedor = df['VENDEDOR'].unique()
-
+    # Opções de Vendedor filtrando somente na loja logada
+    loja_logada = st.session_state['loja_logada']
+    opcoes_vendedor = df[df['LOJA'].isin(loja_logada)]['VENDEDOR'].unique()
     multi_vendedor = st.sidebar.multiselect(label=header_list[16], options=opcoes_vendedor, default=opcoes_vendedor, key="multi_vendedor")
     # Tipos
     opcoes_tipo = df['TIPO'].unique()
-    multi_tipos = st.sidebar.multiselect(label=header_list[1], options=opcoes_tipo, default=['VENDA'], key="multi_tipos")
+    multi_tipos = st.sidebar.multiselect(label=header_list[1], options=opcoes_tipo, default=opcoes_tipo, key="multi_tipos")
     # Fornecedor
     opcoes_fornecedor = df['FORNECEDOR'].unique()
     multi_fornecedores = st.sidebar.multiselect(label=header_list[4], options=opcoes_fornecedor, default=opcoes_fornecedor, key="multi_fornecedores")
@@ -545,15 +541,13 @@ def create_queries():
         st.subheader("Filtros de Consulta")
         
         # Retem a Loja logada
-        opcoes_lojas = db_connection.get_store_by_user()
-        # Filtra a loja selecionada
-        df = df[ df['LOJA'].isin(opcoes_lojas)]
-
+        loja_logada = db_connection.get_store_by_user()
+        
         # Dropdown com a loja desabilitada
-        loja = st.selectbox(label=header_list[0], options=opcoes_lojas, index=0, disabled=True)
+        loja = st.selectbox(label=header_list[0], options=loja_logada, index=0, disabled=True, key="loja_logada")
 
-        # Filtra a loja selecionada
-        df = df[ df['LOJA'].isin(opcoes_lojas)]
+        # Filtra o Dataframe somente com a loja logada
+        df_filtered_loja = df[ df['LOJA'].isin(loja) ]
 
         # --- SLIDER PERIODO (DATAS) ---
         data_inicial_slider, data_final_slider = get_date_slider(df)
@@ -561,24 +555,24 @@ def create_queries():
         st.write("data_final_slider", data_final_slider)
 
         # --- FILTROS MULTISELECT ---
-        multi_vendedor, multi_tipos, multi_fornecedores, multi_tipo_lente, multi_qualidade = get_multiselect_filters(df, loja)
+        multi_vendedor, multi_tipos, multi_fornecedores, multi_tipo_lente, multi_qualidade = get_multiselect_filters(df)
 
 
     # --- FILTRANDO DATAFRAME ---
     # Função para filtrar o DataFrame
-    # df_filtered = filter_df(df, data_inicial_slider, data_final_slider, multi_lojas, multi_vendedor, multi_tipos, multi_fornecedores, multi_tipo_lente, multi_qualidade)
+    # df_filtered = filter_df(df, data_inicial_slider, data_final_slider, loja, multi_vendedor, multi_tipos, multi_fornecedores, multi_tipo_lente, multi_qualidade)
 
-    df_filtered = df[
+    df_filtered = df_filtered_loja[
         # DATAS
-        (df['DATA DA VENDA'] >= data_inicial_slider)
-        & (df['DATA DA VENDA'] <= data_final_slider)
+        (df_filtered_loja['DATA DA VENDA'] >= data_inicial_slider)
+        & (df_filtered_loja['DATA DA VENDA'] <= data_final_slider)
         # MULTISELECTS
-        & (df['VENDEDOR'].isin(multi_vendedor))
-        & (df['TIPO'].isin(multi_tipos))
-        & (df['FORNECEDOR'].isin(multi_fornecedores))
-        & (df['TIPO LENTE'].isin(multi_tipo_lente))
-        & (df['TIPO LENTE'].isin(multi_tipo_lente))
-        & (df['QUALIDADE'].isin(multi_qualidade))
+        & (df_filtered_loja['VENDEDOR'].isin(multi_vendedor))
+        & (df_filtered_loja['TIPO'].isin(multi_tipos))
+        & (df_filtered_loja['FORNECEDOR'].isin(multi_fornecedores))
+        & (df_filtered_loja['TIPO LENTE'].isin(multi_tipo_lente))
+        & (df_filtered_loja['TIPO LENTE'].isin(multi_tipo_lente))
+        & (df_filtered_loja['QUALIDADE'].isin(multi_qualidade))
     ]
 
     # --- KPI's ---
