@@ -41,7 +41,6 @@ header_list = db_connection.get_form_fields(exclude_extra_cols=False)
 # Chamando as funções com base na constante referente ao nome da planilha
 # opcoes_lojas = db_connection.get_options_list(tabela=constants.TABELAS_GSHEETS[1])
 opcoes_lojas = db_connection.get_store_by_user()
-st.write(opcoes_lojas)
 
 opcoes_tipo = db_connection.get_options_list(tabela=constants.TABELAS_GSHEETS[2])
 opcoes_fornecedor = db_connection.get_options_list(tabela=constants.TABELAS_GSHEETS[3])
@@ -60,6 +59,8 @@ def create_register_form():
     # --- EXPANSOR LOJA/TIPO LENTE (DROPDOWNS CONDICIONAIS) ---
     # Necessário retirar do Formulario os condicionais para reter os valores destes
     with st.expander("Selecione as opções abaixo:", expanded=True):
+
+        st.write(opcoes_lojas)
         # Separada a LOJA para funcionar a seleção condicional com o VENDEDOR
         loja = st.selectbox(label=header_list[0] + OBRIGATORIO, options=opcoes_lojas,
                             placeholder="Escolha a Loja", index=None, help=HELP, key=header_list[0])
