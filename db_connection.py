@@ -148,8 +148,6 @@ def get_unique_orders():
     
     # Obtendo a loja logada
     loja_logada = get_store_by_user()
-    st.write("loja_logada", loja_logada)
-    st.write("loja_logada[0]", loja_logada[0])
 
     # Filtrando somente os registros da loja logada
     df_filtered = df_filtered[ (df_filtered['LOJA'] == loja_logada[0]) ]
@@ -157,7 +155,6 @@ def get_unique_orders():
     # Obtem os valores unicos da coluna 'OS'
     # Incluida ordenação de forma ascendente
     unique_orders = df_filtered['OS'].sort_values(ascending=True).unique()
-    st.write("unique_orders", unique_orders)
 
     return unique_orders
 
@@ -173,10 +170,15 @@ def get_unique_orders_ref(unique_orders):
     df_filtered = df[(df['IsActive?'] == 1) |
                      (df['IsActive?'] == "VERDADEIRO") |
                      (df['IsActive?'] == True)]
+    
+    # Obtendo a loja logada
+    loja_logada = get_store_by_user()
+
+    # Filtrando somente os registros da loja logada
+    df_filtered = df_filtered[ (df_filtered['LOJA'] == loja_logada[0]) ]
 
     # Filtra somente as OS passadas no parametro e retorna somente a coluna 'OS REF'
     df_filtered = df_filtered[df_filtered['OS'] == unique_orders]['OS REF'].unique()
-    st.write("get_unique_orders_ref (df_filtered)", df_filtered)
     
     return df_filtered
 
