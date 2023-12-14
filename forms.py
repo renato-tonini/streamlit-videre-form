@@ -39,7 +39,10 @@ header_list = db_connection.get_form_fields(exclude_extra_cols=False)
 
 # --- DEFININDO AS OPÇÕES (SELECT BOX)---
 # Chamando as funções com base na constante referente ao nome da planilha
-opcoes_lojas = db_connection.get_options_list(tabela=constants.TABELAS_GSHEETS[1])
+# opcoes_lojas = db_connection.get_options_list(tabela=constants.TABELAS_GSHEETS[1])
+opcoes_lojas = db_connection.get_store_by_user()
+st.write(opcoes_lojas)
+
 opcoes_tipo = db_connection.get_options_list(tabela=constants.TABELAS_GSHEETS[2])
 opcoes_fornecedor = db_connection.get_options_list(tabela=constants.TABELAS_GSHEETS[3])
 opcoes_tipo_lente = db_connection.get_options_list(tabela=constants.TABELAS_GSHEETS[4])

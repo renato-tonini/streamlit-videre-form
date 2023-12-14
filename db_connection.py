@@ -45,6 +45,18 @@ def load_data(tabela=constants.TABELAS_GSHEETS[0]):
     return df
 
 
+def get_store_by_user():
+    # Retendo nome do usuário logado
+    user_name = st.session_state["name"]
+    # Dividindo a string usando o separado "_"
+    parts = user_name.split('_')
+    # Pegar a parte após o primeiro "_"
+    store = parts[1] if len(parts) > 1 else user_name
+
+    return store
+
+
+
 @st.cache_data(ttl=constants.TIME_TO_LIVE)
 def get_headers_list(tabela):
     # Retorna um dataframe com base no nome da planilha
