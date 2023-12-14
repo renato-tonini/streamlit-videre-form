@@ -110,6 +110,11 @@ def import_data(tabela=constants.TABELAS_GSHEETS[0]):
     # Pre-processamento do Dataframe
     df_pre_processed = pre_process_df(df)
 
+    # Retem a Loja logada
+    opcoes_lojas = db_connection.get_store_by_user()
+    # Filtra a loja selecionada
+    df_pre_processed = df_pre_processed[ df_pre_processed['LOJA'].isin(opcoes_lojas)]
+
     return df_pre_processed
 
 
@@ -134,8 +139,6 @@ def pre_process_df(dataframe):
                           (dataframe['IsActive?'] == True) |
                           (dataframe['IsActive?'] == 1)]
     
-
-
     # Ordenando por 'DATA DA VENDA' e fazendo uma cópia
     dataframe = dataframe.sort_values(
         by='DATA DA VENDA').reset_index(drop=True).copy()
@@ -221,28 +224,23 @@ def get_multiselect_filters(df):
     opcoes_lojas = db_connection.get_store_by_user()
 
         # Separada a LOJA para funcionar a seleção condicional com o VENDEDOR
-    loja = st.selectbox(label=header_list[0], options=opcoes_lojas,
-                        index=0, help=HELP, key=header_list[0], disabled=True)
+    loja = st.selectbox(label=header_list[0], options=opcoes_lojas, index=0, disabled=True)
     # Vendedor
     if loja:
         opcoes_vendedor = df[df['LOJA'].isin(loja)]['VENDEDOR'].unique()
     else:
         opcoes_vendedor = df['VENDEDOR'].unique()
 
-    multi_vendedor = st.sidebar.multiselect(
-        label=header_list[16], options=opcoes_vendedor, default=opcoes_vendedor, key="multi_vendedor")
+    multi_vendedor = st.sidebar.multiselect(label=header_list[16], options=opcoes_vendedor, default=opcoes_vendedor, key="multi_vendedor")
     # Tipos
     opcoes_tipo = df['TIPO'].unique()
-    multi_tipos = st.sidebar.multiselect(
-        label=header_list[1], options=opcoes_tipo, default=['VENDA'], key="multi_tipos")
+    multi_tipos = st.sidebar.multiselect(label=header_list[1], options=opcoes_tipo, default=['VENDA'], key="multi_tipos")
     # Fornecedor
     opcoes_fornecedor = df['FORNECEDOR'].unique()
-    multi_fornecedores = st.sidebar.multiselect(
-        label=header_list[4], options=opcoes_fornecedor, default=opcoes_fornecedor, key="multi_fornecedores")
+    multi_fornecedores = st.sidebar.multiselect(label=header_list[4], options=opcoes_fornecedor, default=opcoes_fornecedor, key="multi_fornecedores")
     # Tipo de Lente
     opcoes_tipo_lente = df['TIPO LENTE'].unique()
-    multi_tipo_lente = st.sidebar.multiselect(
-        label=header_list[5], options=opcoes_tipo_lente, default=opcoes_tipo_lente, key="multi_tipo_lente")
+    multi_tipo_lente = st.sidebar.multiselect(label=header_list[5], options=opcoes_tipo_lente, default=opcoes_tipo_lente, key="multi_tipo_lente")
     # Qualidade
     # Filtrando as opções de qualidade somente dentro do(s) Tipo(s) de Lente escolhido(s)
     if multi_tipo_lente:
@@ -250,8 +248,7 @@ def get_multiselect_filters(df):
     else:
         opcoes_qualidade = df['QUALIDADE'].unique()
 
-    multi_qualidade = st.sidebar.multiselect(
-        label=header_list[6], options=opcoes_qualidade, default=opcoes_qualidade, key="multi_qualidade")
+    multi_qualidade = st.sidebar.multiselect(label=header_list[6], options=opcoes_qualidade, default=opcoes_qualidade, key="multi_qualidade")
 
 
     return multi_lojas, multi_vendedor, multi_tipos, multi_fornecedores, multi_tipo_lente, multi_qualidade
@@ -547,6 +544,8 @@ def create_queries():
     # --- IMPORTANDO A BASE ---
     # Importa a base e faz um pre-processamento simples
     df = import_data()
+
+    st.write("df", df)
 
     # --- SIDEBAR C/ FILTROS ---
     # Incluindo um divisor para os filtros
