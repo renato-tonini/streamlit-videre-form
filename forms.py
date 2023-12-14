@@ -210,7 +210,7 @@ def create_update_form():
         if ordem_servico and ordem_servico_ref:
 
             # Filtra o Dataframe de acordo com a Ordem de Serviço ('OS' e 'OS REF')
-            df_from = db_connection.get_df_by_orders(loja=opcoes_lojas[0], unique_orders=ordem_servico, unique_orders_ref=ordem_servico_ref)
+            df_from = db_connection.get_df_by_orders(unique_orders=ordem_servico, unique_orders_ref=ordem_servico_ref)
 
             # Mostrando o Registro (omite as 03 ultimas colunas do usuario)
             st.write("Registro:")
