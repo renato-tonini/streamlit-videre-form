@@ -58,7 +58,9 @@ if authentication_status:
 
         # Exibe o logotipo no sidebar
         st.image(image=constants.URL_LOGO)
-      
+
+        # Usuário
+        st.markdown(f"Usuário: " {st.secrets['username']})
         # # Botão de Limpeza de Cache
         # cache_button = st.button(label="Atualizar Base", key="atualizar_base", on_click=st.cache_data.clear())
 
