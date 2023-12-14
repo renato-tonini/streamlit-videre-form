@@ -196,7 +196,7 @@ def get_df_by_orders(unique_orders, unique_orders_ref):
     # Retorna a loja logada
     loja = get_store_by_user()
 
-    # Filtra o dataframe de acordo com os parametros
+    # Filtra o dataframe de acordo com os parametros (OS, OS REF e LOJA)
     #   Via filtro padrão do Pandas
     df_filtered = df[(df['OS'] == unique_orders) &
                      (df['OS REF'] == unique_orders_ref) &

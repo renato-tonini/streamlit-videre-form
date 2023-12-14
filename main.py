@@ -171,26 +171,25 @@ if authentication_status:
     # --- 03. EXCLUIR CADASTRO ---
     if choice == constants.MENU_LATERAL[2]:
 
-        # # Criando o Formulário de Cadastro
-        # result = forms.create_exclusion_form()
-        st.write("EXCLUSAO")
+        # Criando o Formulário de Cadastro
+        result = forms.create_exclusion_form()
+        
+        # Verifica se a função retornou algo
+        if result is not None:
 
-        # # Verifica se a função retornou algo
-        # if result is not None:
+            # Desempacota os valores retornados na função
+            submit_button, df_from = result
 
-        #     # Desempacota os valores retornados na função
-        #     submit_button, df_from = result
+            if submit_button:
 
-        #     if submit_button:
+                # Limpando o cache para retornar a base mais atualizada
+                st.cache_data.clear()
 
-        #         # Limpando o cache para retornar a base mais atualizada
-        #         st.cache_data.clear()
+                # Altera o status do registro anterior para False
+                exclude_record = db_connection.exclude_record(df_from)
 
-        #         # Altera o status do registro anterior para False
-        #         exclude_record = db_connection.exclude_record(df_from)
-
-        #         # Exibe mensagem
-        #         st.success("Registro excluído com sucesso.")
+                # Exibe mensagem
+                st.success("Registro excluído com sucesso.")
 
     # --- 04. CONSULTAR CADASTROS ---
     if choice == constants.MENU_LATERAL[3]:
