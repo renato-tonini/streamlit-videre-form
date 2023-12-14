@@ -45,12 +45,9 @@ if authentication_status == False:
 # --- USUARIO AUTENTICADO ---
 if authentication_status:
 
-    # # Atribuindo o usuário a sessão
-    # st.session_state["name"] = username
-
     # # Limpando o cache para retornar a base mais atualizada
     # st.cache_data.clear()
-    
+
 
     # --- ESTILIZAÇÃO CSS ---
     # Faz a leitura do arquico style.css (estiliza os Cards)

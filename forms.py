@@ -209,8 +209,14 @@ def create_update_form():
             st.write("Registro:")
             st.dataframe(df_from.iloc[:, :-3])
 
-            registro_loja = df_from['LOJA'].values
-            idx_loja = opcoes_lojas.index(registro_loja[0])
+            # Retem a Loja baseado no usuário do login
+            opcoes_lojas = db_connection.get_store_by_user()
+
+            # registro_loja = df_from['LOJA'].values
+            # idx_loja = opcoes_lojas.index(registro_loja[0])
+
+          
+
             loja = st.selectbox(label=header_list[0] + OBRIGATORIO, options=opcoes_lojas, index=0,
                                 placeholder="Escolha a Loja", help=HELP, key=header_list[0], disabled=True)
 
