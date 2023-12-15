@@ -774,40 +774,7 @@ def create_queries():
         # ================
         # --- SEÇÃO 02 ---
         # ================
-        st.header("Seção 02 - Quantidades por LOJA")
-
-        # --- DATAFRAME ---
-        df_agg_vendedor = dataviz.aggregate_df(dataframe=df_filtered, columns_by=['LOJA', 'VENDEDOR'])
-
-
-        # --- QTDADES POR LOJA ---
-        col1, col2, col3 = st.columns(3)
-        with col1:
-            # --- GRÁFICO 01 ---
-            fig_lojas_os = dataviz.plot_bar_chart(df=df_agg_vendedor, x_axis='LOJA', y_axis='OS',
-                                                  color_axis='LOJA', title_text='Quantidade de OS (NFs) por LOJA', text_format='.0d')
-
-            bar_chart = st.plotly_chart(figure_or_data=fig_lojas_os, use_container_width=True)
-
-        with col2:
-            # --- GRÁFICO 02 ---
-            fig_lojas_os_ref = dataviz.plot_bar_chart(df=df_agg_vendedor, x_axis='LOJA', y_axis='OS REF',
-                                                      color_axis='LOJA', title_text='Quantidade de OS (Itens vendidos) por LOJA', text_format='.0d')
-            
-            bar_chart = st.plotly_chart(figure_or_data=fig_lojas_os_ref, use_container_width=True)
-
-        with col3:
-            # --- GRÁFICO 03 ---
-            fig_lojas_pct_custo = dataviz.plot_bar_chart(df=df_agg_vendedor, x_axis='LOJA', y_axis='%', color_axis='LOJA',
-                                                         title_text='Custo percentual por LOJA',
-                                                         text_format=".2%")
-
-            bar_chart = st.plotly_chart(figure_or_data=fig_lojas_pct_custo, use_container_width=True)
-
-        # ================
-        # --- SEÇÃO 03 ---
-        # ================
-        st.header("Seção 03 - Por VENDEDOR")
+        st.header("Seção 02 - Valores por VENDEDOR")
 
         # --- DATAFRAME ---
         df_agg_vendedor = dataviz.aggregate_df(dataframe=df_filtered, columns_by=['LOJA', 'VENDEDOR'])
@@ -833,6 +800,35 @@ def create_queries():
                                                                title_text='MARKUP Médio por VENDEDOR/LOJA', text_format=".2s")
             
             bar_chart = st.plotly_chart(figure_or_data=fig_lojas_vendedores_mkup, use_container_width=True)
+
+        # ================
+        # --- SEÇÃO 03 ---
+        # ================
+        st.header("Seção 03 - Quantidades por VENDEDOR")
+
+        # --- QTDADES POR LOJA ---
+        col1, col2, col3 = st.columns(3)
+        with col1:
+            # --- GRÁFICO 01 ---
+            fig_lojas_os = dataviz.plot_bar_chart(df=df_agg_vendedor, x_axis='VENDEDOR', y_axis='OS',
+                                                  color_axis='LOJA', title_text='Quantidade de OS (NFs) por LOJA', text_format='.0d')
+
+            bar_chart = st.plotly_chart(figure_or_data=fig_lojas_os, use_container_width=True)
+
+        with col2:
+            # --- GRÁFICO 02 ---
+            fig_lojas_os_ref = dataviz.plot_bar_chart(df=df_agg_vendedor, x_axis='VENDEDOR', y_axis='OS REF',
+                                                      color_axis='LOJA', title_text='Quantidade de OS (Itens vendidos) por LOJA', text_format='.0d')
+            
+            bar_chart = st.plotly_chart(figure_or_data=fig_lojas_os_ref, use_container_width=True)
+
+        with col3:
+            # --- GRÁFICO 03 ---
+            fig_lojas_pct_custo = dataviz.plot_bar_chart(df=df_agg_vendedor, x_axis='VENDEDOR', y_axis='%', color_axis='LOJA',
+                                                         title_text='Custo percentual por LOJA',
+                                                         text_format=".2%")
+
+            bar_chart = st.plotly_chart(figure_or_data=fig_lojas_pct_custo, use_container_width=True)
 
 
         # # --- CRIANDO SUBPLOTS ---
