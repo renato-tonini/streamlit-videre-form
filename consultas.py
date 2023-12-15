@@ -72,7 +72,8 @@ cat_columns = ['LOJA', 'TIPO', 'OS', 'OS REF', 'FORNECEDOR',
 # --- LISTA COM FILTROS (VISÃO) ---
 # Filtros de Tempo
 visao_opcoes = ['Semanal', 'Quinzenal', 'Mensal',
-                'Trimestral', "Semestral", 'Anual']
+                'Trimestral', "Semestral", 'Anual',
+                'Todas']
 
 
 # ===============
@@ -174,19 +175,18 @@ def get_date_slider(df):
     primeira_data_disponivel = min(df['DATA DA VENDA'].dt.date)
 
     # ULTIMA DATA
-    # Opções:
-    #   01 - Ultima data do Dataset
-    ultima_data_disponivel = max(df['DATA DA VENDA'].dt.date)
-    #   02 - Data Atual
-    # ultima_data_disponivel = dt.date.today()
+    # Se seletor for todas as datas coloca a maior data do dataframe
+    if visao_selecionada == "Todas":
+        ultima_data_disponivel = max(df['DATA DA VENDA'].dt.date)
+    else: # Se for outra como semanal, mensal, considera Data atual e calcula a data inicial
+        ultima_data_disponivel = dt.date.today()
 
     # Chamando função para retornar a data inicial a partir da visão selecionada
     data_inicial_slider = get_initial_slider_date(visao_selecionada=visao_selecionada, 
-                                                  data_final_ref=ultima_data_disponivel)
-
-    # Verifica se o usuario escolheu Todas (função retorna None)
+                                                    data_final_ref=ultima_data_disponivel)
+    # Se funçãp retornar None (seletor = "Todas")
+    # atribui a primeira data do Dataframe
     if data_inicial_slider is None:
-        # Atribui a primeira data do conjunto
         data_inicial_slider = primeira_data_disponivel
 
     # Convertendo em Data somente (exclui hora p/ evitar erro no slider)
@@ -206,7 +206,7 @@ def get_date_slider(df):
     return data_inicial_slider, data_final_slider
 
 
-def get_multiselect_filters(df, ):
+def get_multiselect_filters(df):
     # --- CABECALHOS DA BASE ---
     # Chamando a função para obter os cabeçalhos da Planilha Formulario
     header_list = db_connection.get_form_fields()
@@ -544,6 +544,11 @@ def create_queries():
 
         # Filtra o Dataframe somente com a loja logada
         df_filtered_loja = df[ (df['LOJA'].isin(loja_logada)) ]
+
+        # Verifica se há dados disponíveis
+        if df_filtered_loja.shape[0] == 0:
+            st.info("Não há registros disponíveis")
+            st.stop()
 
         # --- SLIDER PERIODO (DATAS) ---
         data_inicial_slider, data_final_slider = get_date_slider(df_filtered_loja)
