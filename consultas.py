@@ -741,7 +741,7 @@ def create_queries():
 
             # Plotando o Gráfico
             fig_datas_vendas = dataviz.plot_line_chart(df=df_moving_average_vendas, x_axis='DATA DA VENDA', y_axis='VALOR VENDA',
-                                                       color_axis='LOJA',
+                                                       color_axis='VENDEDOR',
                                                        title_text=f"Média móvel de VENDAS dos ultimos {periodo_media_movel}")
 
             # Plotando no streamlit
@@ -755,7 +755,7 @@ def create_queries():
 
             # Plotando o Gráfico
             fig_data_custos = dataviz.plot_line_chart(df=df_moving_average_custo, x_axis='DATA DA VENDA', y_axis='Custo Total',
-                                                      color_axis='LOJA',
+                                                      color_axis='VENDEDOR',
                                                       title_text=f"Média móvel de CUSTO dos ultimos {periodo_media_movel}")
 
             # Plotando no streamlit
@@ -769,7 +769,7 @@ def create_queries():
 
             # Plotando o Gráfico
             fig_data_markup = dataviz.plot_line_chart(df=df_moving_average_markup, x_axis='DATA DA VENDA', y_axis='MKP',
-                                                      color_axis='LOJA',
+                                                      color_axis='VENDEDOR',
                                                       title_text=f"Média móvel de MKP dos ultimos {periodo_media_movel}")
 
             # Plotando no streamlit
@@ -787,22 +787,22 @@ def create_queries():
         col1, col2, col3 = st.columns(3)
         with col1:
             # --- GRÁFICO 01 ---
-            fig_lojas_vendedores_vendas = dataviz.plot_bar_chart(df=df_agg_vendedor, x_axis='VENDEDOR', y_axis='VALOR VENDA', color_axis='LOJA',
-                                                                 title_text='VENDAS por VENDEDOR/LOJA', text_format=".2s")
+            fig_lojas_vendedores_vendas = dataviz.plot_bar_chart(df=df_agg_vendedor, x_axis='VENDEDOR', y_axis='VALOR VENDA', color_axis='VENDEDOR',
+                                                                 title_text='VENDAS por VENDEDOR', text_format="R$.2s")
 
             bar_chart = st.plotly_chart(figure_or_data=fig_lojas_vendedores_vendas, use_container_width=True)
 
         with col2:
             # --- GRÁFICO 02 ---
-            fig_lojas_vendedores_custo = dataviz.plot_bar_chart(df=df_agg_vendedor, x_axis='VENDEDOR', y_axis='Custo Total', color_axis='LOJA',
-                                                                title_text='CUSTOS por VENDEDOR/LOJA', text_format=".2s")
+            fig_lojas_vendedores_custo = dataviz.plot_bar_chart(df=df_agg_vendedor, x_axis='VENDEDOR', y_axis='Custo Total', color_axis='VENDEDOR',
+                                                                title_text='CUSTOS por VENDEDOR', text_format="R$ .2s")
             
             bar_chart = st.plotly_chart(figure_or_data=fig_lojas_vendedores_custo, use_container_width=True)
 
         with col3:
             # --- GRÁFICO 03 ---
-            fig_lojas_vendedores_mkup = dataviz.plot_bar_chart(df=df_agg_vendedor, x_axis='VENDEDOR', y_axis='MKP', color_axis='LOJA',
-                                                               title_text='MARKUP Médio por VENDEDOR/LOJA', text_format=".2s")
+            fig_lojas_vendedores_mkup = dataviz.plot_bar_chart(df=df_agg_vendedor, x_axis='VENDEDOR', y_axis='MKP', color_axis='VENDEDOR',
+                                                               title_text='MARKUP Médio por VENDEDOR', text_format="R$ .2s")
             
             bar_chart = st.plotly_chart(figure_or_data=fig_lojas_vendedores_mkup, use_container_width=True)
 
@@ -815,23 +815,22 @@ def create_queries():
         col1, col2, col3 = st.columns(3)
         with col1:
             # --- GRÁFICO 01 ---
-            fig_lojas_os = dataviz.plot_bar_chart(df=df_agg_vendedor, x_axis='VENDEDOR', y_axis='OS',
-                                                  color_axis='LOJA', title_text='Quantidade de OS (NFs) por LOJA', text_format='.0d')
+            fig_lojas_os = dataviz.plot_bar_chart(df=df_agg_vendedor, x_axis='VENDEDOR', y_axis='OS', color_axis='VENDEDOR', 
+                                                  title_text='Quantidade de OS (NFs) por VENDEDOR', text_format='.0d')
 
             bar_chart = st.plotly_chart(figure_or_data=fig_lojas_os, use_container_width=True)
 
         with col2:
             # --- GRÁFICO 02 ---
-            fig_lojas_os_ref = dataviz.plot_bar_chart(df=df_agg_vendedor, x_axis='VENDEDOR', y_axis='OS REF',
-                                                      color_axis='LOJA', title_text='Quantidade de OS (Itens vendidos) por LOJA', text_format='.0d')
+            fig_lojas_os_ref = dataviz.plot_bar_chart(df=df_agg_vendedor, x_axis='VENDEDOR', y_axis='OS REF', color_axis='VENDEDOR', 
+                                                      title_text='Quantidade de OS (Itens vendidos) por VENDEDOR', text_format='.0d')
             
             bar_chart = st.plotly_chart(figure_or_data=fig_lojas_os_ref, use_container_width=True)
 
         with col3:
             # --- GRÁFICO 03 ---
-            fig_lojas_pct_custo = dataviz.plot_bar_chart(df=df_agg_vendedor, x_axis='VENDEDOR', y_axis='%', color_axis='LOJA',
-                                                         title_text='Custo percentual por LOJA',
-                                                         text_format=".2%")
+            fig_lojas_pct_custo = dataviz.plot_bar_chart(df=df_agg_vendedor, x_axis='VENDEDOR', y_axis='%', color_axis='VENDEDOR',
+                                                         title_text='Custo percentual por VENDEDOR', text_format=".2%")
 
             bar_chart = st.plotly_chart(figure_or_data=fig_lojas_pct_custo, use_container_width=True)
 
