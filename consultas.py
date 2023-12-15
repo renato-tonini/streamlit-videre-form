@@ -604,13 +604,10 @@ def create_queries():
         # Separando os containers
         col1, col2, col3, col4, col5 = st.columns(5)
         # Exibindo as métricas
-        col1.metric(
-            label="Vendas", value=df_kpis_geral['KPIs formatted'][0], help="Somatória da coluna VALOR VENDA")
-        col2.metric(
-            label="Lentes", value=df_kpis_geral['KPIs formatted'][1], help="Somatória da coluna VLR LENTE + TRAT.")
-        col3.metric(
-            label="Custos", value=df_kpis_geral['KPIs formatted'][2], help="Somatória da coluna Custo Total")
-        col4.metric(label="Custo Médio %", value=df_kpis_geral['KPIs formatted'][3],
+        col1.metric(label="Total de Vendas", value=df_kpis_geral['KPIs formatted'][0], help="Somatória da coluna VALOR VENDA")
+        col2.metric(label="Total de Lentes", value=df_kpis_geral['KPIs formatted'][1], help="Somatória da coluna VLR LENTE + TRAT.")
+        col3.metric(label="Total de Custos", value=df_kpis_geral['KPIs formatted'][2], help="Somatória da coluna Custo Total")
+        col4.metric(label="Custo Médio %", value=df_kpis_geral['KPIs formatted'][3], 
                     delta=df_kpis_geral['KPIs formatted'][5], help="Divisão entre VLR LENTE + TRAT. e VALOR VENDA")
         col5.metric(label="Markup Médio", value=df_kpis_geral['KPIs formatted'][4],
                     delta=df_kpis_geral['KPIs formatted'][6], help="Média da coluna MKP")
@@ -622,16 +619,16 @@ def create_queries():
         col1, col2, col3, col4, col5 = st.columns(5)
 
         # # Exibindo as métricas
-        col1.metric(label="Número de NFs",
-                    value=df_kpis_vendas['KPIs formatted'][0], help="Contagem de OS distintas.")
-        col2.metric(label="Número de Produtos Vendidos",
-                    value=df_kpis_vendas['KPIs formatted'][1], help="Contagem de OS REF distintas.")
-        col3.metric(label="Ticket Médio por NF",
-                    value=df_kpis_vendas['KPIs formatted'][2], help="Valor Médio de VALOR VENDA por número de OS.")
-        col4.metric(label="Ticket Médio por Produto",
-                    value=df_kpis_vendas['KPIs formatted'][3], help="Valor Médio do VALOR VENDA por número de OS REF.")
-        col5.metric(label="Top Vendedor",
-                    value=df_kpis_vendas['KPIs formatted'][4], help="Vendedor com maior VALOR VENDA.")
+        col1.metric(label="Número de NFs", value=df_kpis_vendas['KPIs formatted'][0], 
+                    help="Contagem de OS distintas.")
+        col2.metric(label="Número de Produtos Vendidos", value=df_kpis_vendas['KPIs formatted'][1], 
+                    help="Contagem de OS REF distintas.")
+        col3.metric(label="Ticket Médio por NF", value=df_kpis_vendas['KPIs formatted'][2], 
+                    help="Valor Médio de VALOR VENDA por número de OS.")
+        col4.metric(label="Ticket Médio por Produto", value=df_kpis_vendas['KPIs formatted'][3], 
+                    help="Valor Médio do VALOR VENDA por número de OS REF.")
+        col5.metric(label="Top Vendedor", value=df_kpis_vendas['KPIs formatted'][4], 
+                    help="Vendedor com maior VALOR VENDA.")
 
         # PRAZOS
         st.subheader("Prazos Médios")
@@ -639,16 +636,16 @@ def create_queries():
         # Separando os containers
         col1, col2, col3, col4, col5 = st.columns(5)
         # Exibindo as métricas
-        col1.metric(label="Média de Entrega",
-                    value=df_deadlines_kpis['KPIs formatted'][1], help="Prazo médio de entrega com relação a DATA DA VENDA.")
-        col2.metric(label="Média da Pedido",
-                    value=df_deadlines_kpis['KPIs formatted'][2],  help="Prazo médio do Pedido com relação a DATA DA VENDA.")
-        col3.metric(label="Média da Data da Lente",
-                    value=df_deadlines_kpis['KPIs formatted'][3], help="Prazo médio da Lente com relação a DATA DA VENDA.")
-        col4.metric(label="Média de Montagem",
-                    value=df_deadlines_kpis['KPIs formatted'][4], help="Prazo médio de Montagem com relação a DATA DA VENDA.")
-        col5.metric(label="Média de Retirada",
-                    value=df_deadlines_kpis['KPIs formatted'][5], help="Prazo médio de Retirada com relação a DATA DA VENDA.")
+        col1.metric(label="Média de Entrega", value=df_deadlines_kpis['KPIs formatted'][1], 
+                    help="Prazo médio de entrega com relação a DATA DA VENDA.")
+        col2.metric(label="Média da Pedido", value=df_deadlines_kpis['KPIs formatted'][2],  
+                    help="Prazo médio do Pedido com relação a DATA DA VENDA.")
+        col3.metric(label="Média da Data da Lente", value=df_deadlines_kpis['KPIs formatted'][3], 
+                    help="Prazo médio da Lente com relação a DATA DA VENDA.")
+        col4.metric(label="Média de Montagem", value=df_deadlines_kpis['KPIs formatted'][4], 
+                    help="Prazo médio de Montagem com relação a DATA DA VENDA.")
+        col5.metric(label="Média de Retirada", value=df_deadlines_kpis['KPIs formatted'][5], 
+                    help="Prazo médio de Retirada com relação a DATA DA VENDA.")
 
         # # Disclaimer da Base de Comparação de Datas
         # disclaimer = st.markdown("<p style='font-size: 13px;'> <em>* Todos os prazos são comparados com a DATA DA VENDA</em> </p>", unsafe_allow_html=True)
@@ -743,8 +740,7 @@ def create_queries():
                                                        title_text=f"Média móvel de VENDAS dos ultimos {periodo_media_movel}")
 
             # Plotando no streamlit
-            line_chart = st.plotly_chart(
-                figure_or_data=fig_datas_vendas, use_container_width=True)
+            line_chart = st.plotly_chart(figure_or_data=fig_datas_vendas, use_container_width=True)
 
         with col2:
             # --- GRÁFICO 02---
@@ -758,8 +754,7 @@ def create_queries():
                                                       title_text=f"Média móvel de CUSTO dos ultimos {periodo_media_movel}")
 
             # Plotando no streamlit
-            line_chart = st.plotly_chart(
-                figure_or_data=fig_data_custos, use_container_width=True)
+            line_chart = st.plotly_chart(figure_or_data=fig_data_custos, use_container_width=True)
 
         with col3:
             # --- GRÁFICO 03 ---
@@ -773,85 +768,49 @@ def create_queries():
                                                       title_text=f"Média móvel de MKP dos ultimos {periodo_media_movel}")
 
             # Plotando no streamlit
-            line_chart = st.plotly_chart(
-                figure_or_data=fig_data_markup, use_container_width=True)
+            line_chart = st.plotly_chart(figure_or_data=fig_data_markup, use_container_width=True)
+
 
         # ================
         # --- SEÇÃO 02 ---
         # ================
-        st.header("Seção 02 - Valores por LOJA")
+        st.header("Seção 02 - Quantidades por LOJA")
 
         # --- DATAFRAME ---
-        df_agg_loja = dataviz.aggregate_df(
-            dataframe=df_filtered, columns_by=['LOJA'])
+        df_agg_vendedor = dataviz.aggregate_df(dataframe=df_filtered, columns_by=['LOJA', 'VENDEDOR'])
 
-        # --- VALORES POR LOJA ---
-        col1, col2, col3 = st.columns(3)
-        with col1:
-            # --- GRÁFICO 01 ---
-            fig_lojas_venda = dataviz.plot_bar_chart(df=df_agg_loja, x_axis='LOJA', y_axis='VALOR VENDA', color_axis='LOJA',
-                                                     title_text='VENDAS por LOJA', text_format=".2s")
-
-            bar_chart1 = st.plotly_chart(
-                figure_or_data=fig_lojas_venda, use_container_width=True)
-
-        with col2:
-            # --- GRÁFICO 02 ---
-            fig_lojas_custo = dataviz.plot_bar_chart(df=df_agg_loja, x_axis='LOJA', y_axis='Custo Total', color_axis='LOJA',
-                                                     title_text='CUSTOS por LOJA', text_format=".2s")
-
-            # Plotando no streamlit
-            bar_chart2 = st.plotly_chart(
-                figure_or_data=fig_lojas_custo, use_container_width=True)
-
-        with col3:
-            # --- GRÁFICO 03 ---
-            fig_lojas_mkup = dataviz.plot_bar_chart(df=df_agg_loja, x_axis='LOJA', y_axis='MKP', color_axis='LOJA',
-                                                    title_text='MARKUP Médio por LOJA', text_format=".2s")
-
-            # Plotando no streamlit
-            bar_chart3 = st.plotly_chart(
-                figure_or_data=fig_lojas_mkup, use_container_width=True)
-
-        # ================
-        # --- SEÇÃO 03 ---
-        # ================
-        st.header("Seção 03 - Quantidades por LOJA")
 
         # --- QTDADES POR LOJA ---
         col1, col2, col3 = st.columns(3)
         with col1:
             # --- GRÁFICO 01 ---
-            fig_lojas_os = dataviz.plot_bar_chart(df=df_agg_loja, x_axis='LOJA', y_axis='OS',
+            fig_lojas_os = dataviz.plot_bar_chart(df=df_agg_vendedor, x_axis='LOJA', y_axis='OS',
                                                   color_axis='LOJA', title_text='Quantidade de OS (NFs) por LOJA', text_format='.0d')
 
-            bar_chart = st.plotly_chart(
-                figure_or_data=fig_lojas_os, use_container_width=True)
+            bar_chart = st.plotly_chart(figure_or_data=fig_lojas_os, use_container_width=True)
 
         with col2:
             # --- GRÁFICO 02 ---
-            fig_lojas_os_ref = dataviz.plot_bar_chart(df=df_agg_loja, x_axis='LOJA', y_axis='OS REF',
+            fig_lojas_os_ref = dataviz.plot_bar_chart(df=df_agg_vendedor, x_axis='LOJA', y_axis='OS REF',
                                                       color_axis='LOJA', title_text='Quantidade de OS (Itens vendidos) por LOJA', text_format='.0d')
-            bar_chart = st.plotly_chart(
-                figure_or_data=fig_lojas_os_ref, use_container_width=True)
+            
+            bar_chart = st.plotly_chart(figure_or_data=fig_lojas_os_ref, use_container_width=True)
 
         with col3:
             # --- GRÁFICO 03 ---
-            fig_lojas_pct_custo = dataviz.plot_bar_chart(df=df_agg_loja, x_axis='LOJA', y_axis='%', color_axis='LOJA',
+            fig_lojas_pct_custo = dataviz.plot_bar_chart(df=df_agg_vendedor, x_axis='LOJA', y_axis='%', color_axis='LOJA',
                                                          title_text='Custo percentual por LOJA',
                                                          text_format=".2%")
 
-            bar_chart = st.plotly_chart(
-                figure_or_data=fig_lojas_pct_custo, use_container_width=True)
+            bar_chart = st.plotly_chart(figure_or_data=fig_lojas_pct_custo, use_container_width=True)
 
         # ================
-        # --- SEÇÃO 04 ---
+        # --- SEÇÃO 03 ---
         # ================
-        st.header("Seção 04 - Por VENDEDOR/LOJA")
+        st.header("Seção 03 - Por VENDEDOR")
 
         # --- DATAFRAME ---
-        df_agg_vendedor = dataviz.aggregate_df(
-            dataframe=df_filtered, columns_by=['LOJA', 'VENDEDOR'])
+        df_agg_vendedor = dataviz.aggregate_df(dataframe=df_filtered, columns_by=['LOJA', 'VENDEDOR'])
 
         col1, col2, col3 = st.columns(3)
         with col1:
@@ -859,45 +818,45 @@ def create_queries():
             fig_lojas_vendedores_vendas = dataviz.plot_bar_chart(df=df_agg_vendedor, x_axis='VENDEDOR', y_axis='VALOR VENDA', color_axis='LOJA',
                                                                  title_text='VENDAS por VENDEDOR/LOJA', text_format=".2s")
 
-            bar_chart = st.plotly_chart(
-                figure_or_data=fig_lojas_vendedores_vendas, use_container_width=True)
+            bar_chart = st.plotly_chart(figure_or_data=fig_lojas_vendedores_vendas, use_container_width=True)
 
         with col2:
             # --- GRÁFICO 02 ---
             fig_lojas_vendedores_custo = dataviz.plot_bar_chart(df=df_agg_vendedor, x_axis='VENDEDOR', y_axis='Custo Total', color_axis='LOJA',
                                                                 title_text='CUSTOS por VENDEDOR/LOJA', text_format=".2s")
-            bar_chart = st.plotly_chart(
-                figure_or_data=fig_lojas_vendedores_custo, use_container_width=True)
+            
+            bar_chart = st.plotly_chart(figure_or_data=fig_lojas_vendedores_custo, use_container_width=True)
 
         with col3:
             # --- GRÁFICO 03 ---
             fig_lojas_vendedores_mkup = dataviz.plot_bar_chart(df=df_agg_vendedor, x_axis='VENDEDOR', y_axis='MKP', color_axis='LOJA',
                                                                title_text='MARKUP Médio por VENDEDOR/LOJA', text_format=".2s")
-            bar_chart = st.plotly_chart(
-                figure_or_data=fig_lojas_vendedores_mkup, use_container_width=True)
+            
+            bar_chart = st.plotly_chart(figure_or_data=fig_lojas_vendedores_mkup, use_container_width=True)
 
-        # --- CRIANDO SUBPLOTS ---
-        # Cria os subplots para passa-los de uma vez para a função de conversão para HTML
-        fig_subplots = make_subplots(rows=5, cols=3)
-        # --- SESSÃO 01 ---
-        fig_subplots.add_trace(fig_datas_vendas.data[0], row=1, col=1)
-        fig_subplots.add_trace(fig_data_custos.data[0], row=1, col=2)
-        fig_subplots.add_trace(fig_data_markup.data[0], row=1, col=3)
-        # --- SESSÃO 02 ---
-        fig_subplots.add_trace(fig_lojas_venda.data[0], row=2, col=1)
-        fig_subplots.add_trace(fig_lojas_custo.data[0], row=2, col=2)
-        fig_subplots.add_trace(fig_lojas_mkup.data[0], row=2, col=3)
-        # --- SESSÃO 03 ---
-        fig_subplots.add_trace(fig_lojas_os.data[0], row=3, col=1)
-        fig_subplots.add_trace(fig_lojas_os_ref.data[0], row=3, col=2)
-        fig_subplots.add_trace(fig_lojas_pct_custo.data[0], row=3, col=3)
-        # --- SESSÃO 04 ---
-        fig_subplots.add_trace(fig_lojas_vendedores_vendas.data[0], row=4, col=1)
-        fig_subplots.add_trace(fig_lojas_vendedores_custo.data[0], row=4, col=2)
-        fig_subplots.add_trace(fig_lojas_vendedores_mkup.data[0], row=4, col=3)
 
-        # --- SESSÃO DE DOWNLOAD DO HTML---
-        st.markdown("---")
-        st.subheader("Download")
-        # Gerando o arquivo
-        dataviz.generate_html_download_link(fig=fig_subplots)
+        # # --- CRIANDO SUBPLOTS ---
+        # # Cria os subplots para passa-los de uma vez para a função de conversão para HTML
+        # fig_subplots = make_subplots(rows=5, cols=3)
+        # # --- SESSÃO 01 ---
+        # fig_subplots.add_trace(fig_datas_vendas.data[0], row=1, col=1)
+        # fig_subplots.add_trace(fig_data_custos.data[0], row=1, col=2)
+        # fig_subplots.add_trace(fig_data_markup.data[0], row=1, col=3)
+        # # --- SESSÃO 02 ---
+        # fig_subplots.add_trace(fig_lojas_venda.data[0], row=2, col=1)
+        # fig_subplots.add_trace(fig_lojas_custo.data[0], row=2, col=2)
+        # fig_subplots.add_trace(fig_lojas_mkup.data[0], row=2, col=3)
+        # # --- SESSÃO 03 ---
+        # fig_subplots.add_trace(fig_lojas_os.data[0], row=3, col=1)
+        # fig_subplots.add_trace(fig_lojas_os_ref.data[0], row=3, col=2)
+        # fig_subplots.add_trace(fig_lojas_pct_custo.data[0], row=3, col=3)
+        # # --- SESSÃO 04 ---
+        # fig_subplots.add_trace(fig_lojas_vendedores_vendas.data[0], row=4, col=1)
+        # fig_subplots.add_trace(fig_lojas_vendedores_custo.data[0], row=4, col=2)
+        # fig_subplots.add_trace(fig_lojas_vendedores_mkup.data[0], row=4, col=3)
+
+        # # --- SESSÃO DE DOWNLOAD DO HTML---
+        # st.markdown("---")
+        # st.subheader("Download")
+        # # Gerando o arquivo
+        # dataviz.generate_html_download_link(fig=fig_subplots)
