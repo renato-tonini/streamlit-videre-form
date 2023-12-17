@@ -24,7 +24,7 @@ SPREADSHEET_STR = os.getenv("GSHEETS_NOME_PLANILHA")
 
 # --- CONEXAO PADRAO DO STREAMLIT ---
 # Criando uma conexão com o Google Sheets
-conn = st.connection(name="gsheets", type=GSheetsConnection)
+# conn = st.connection(name="gsheets", type=GSheetsConnection)
 
 
 @st.cache_data(ttl=constants.TIME_TO_LIVE)
@@ -33,8 +33,8 @@ def load_data(tabela=constants.TABELAS_GSHEETS[0]):
     Parametros:
     tabela (str) nome da tabela (default='Formulario')
     '''
-    # # Criando a conexão com Google Sheets
-    # conn = st.connection(name="gsheets", type=GSheetsConnection)
+    # Criando a conexão com Google Sheets
+    conn = st.connection(name="gsheets", type=GSheetsConnection)
 
     # Lendo a planilha especificada no parametro da função
     df = conn.read(worksheet=tabela)  # , ttl=0)
@@ -139,7 +139,7 @@ def get_mandatory_fields():
     return df_mandatory
 
 
-# @st.cache_data(ttl=constants.TIME_TO_LIVE)
+@st.cache_data(ttl=constants.TIME_TO_LIVE)
 def get_unique_orders():
     '''Retorna uma lista de valores unicos da coluna 'OS' da planilha 'Formulario'.'''
 
